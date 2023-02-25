@@ -1,0 +1,4 @@
+---
+build_image: mlupin/docker-lambda:nodejs14.x-build
+builder: nodejs
+run_image: mlupin/docker-lambda:nodejs14.x
