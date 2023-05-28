@@ -3,9 +3,9 @@
   //return "Hello World!!"
 //}
 
-exports.handler = async function(context) {
+exports.handler = async function(event,context) {
     return {
         status: 200,
-        body: "hello world! " + "Token presented : " + context, 
+        body: "hello world! " + "EVENT : " + JSON.stringify(event) + "CONTEXT : " + JSON.stringify(context), 
     }
 }
