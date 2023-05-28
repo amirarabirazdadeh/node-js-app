@@ -6,6 +6,6 @@
 exports.handler = async function(event,context) {
     return {
         status: 200,
-        body: "hello world! " + "EVENT : " + JSON.stringify(event) + "CONTEXT : " + JSON.stringify(context.clientContext.XXXXXX), 
+        body: "hello world! " + "EVENT : " + JSON.stringify(event) + "CONTEXT : " + JSON.stringify(context.clientContext), 
     }
 }
