@@ -6,6 +6,6 @@
 exports.handler = async function(context) {
     return {
         status: 200,
-        body: "hello world! " + "Token presented : ${context}", 
+        body: "hello world! " + "Token presented : " + context, 
     }
 }
