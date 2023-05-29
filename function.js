@@ -1,6 +1,6 @@
 exports.handler =  async function(event, context) {
   console.log("EVENT: \n" + JSON.stringify(event, null, 2))
-  return "Hello World!!"
+  return "Hello World! " + JSON.stringify(context);
 }
 //var url = require('url');
 // exports.handler = async function(event,context) {
