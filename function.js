@@ -12,8 +12,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "handler": () => (/* binding */ handler)
 /* harmony export */ });
-/* harmony import */ var _webiny_handler_aws_raw__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @webiny/handler-aws/raw */ "./packages/handler-aws/dist/raw/index.js");
-/* harmony import */ var _webiny_handler_aws_raw__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_webiny_handler_aws_raw__WEBPACK_IMPORTED_MODULE_0__);
+Object(function webpackMissingModule() { var e = new Error("Cannot find module '@webiny/handler-aws/raw'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 /* harmony import */ var _webiny_api_file_manager_handlers_transform__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @webiny/api-file-manager/handlers/transform */ "./packages/api-file-manager/dist/handlers/transform/index.js");
 
 
@@ -23,7 +22,7 @@ const handler = async (event, context) => {
 
     //return JSON.stringify(context);
 
-    const handler = (0,_webiny_handler_aws_raw__WEBPACK_IMPORTED_MODULE_0__.createHandler)({
+    const handler = Object(function webpackMissingModule() { var e = new Error("Cannot find module '@webiny/handler-aws/raw'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())({
       plugins: [(0,_webiny_api_file_manager_handlers_transform__WEBPACK_IMPORTED_MODULE_1__.createTransformFilePlugins)()]
     });
     const response = await handler(event, context);
@@ -908,325 +907,6 @@ exports["default"] = void 0;
 var _Error = _interopRequireWildcard(__webpack_require__(/*! ./Error */ "./packages/error/dist/Error.js"));
 var _default = _Error.default;
 exports["default"] = _default;
-
-/***/ }),
-
-/***/ "./packages/handler-aws/dist/execute.js":
-/*!**********************************************!*\
-  !*** ./packages/handler-aws/dist/execute.js ***!
-  \**********************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = (__webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js")["default"]);
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.execute = void 0;
-var _objectSpread2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectSpread2 */ "./node_modules/@babel/runtime/helpers/objectSpread2.js"));
-var _types = __webpack_require__(/*! ./types */ "./packages/handler-aws/dist/types.js");
-const createHandleResponse = (app, resolve) => {
-  return (err, result) => {
-    if (err) {
-      return resolve({
-        statusCode: 500,
-        body: JSON.stringify(err),
-        headers: {}
-      });
-    }
-    if (app.__webiny_raw_result) {
-      return resolve(app.__webiny_raw_result);
-    }
-    const isBase64Encoded = !!result.headers[_types.Base64EncodeHeader.encoded] || !!result.headers[_types.Base64EncodeHeader.binary];
-    const response = {
-      statusCode: result.statusCode,
-      body: isBase64Encoded ? result.rawPayload.toString("base64") : result.payload,
-      headers: result.headers,
-      isBase64Encoded
-    };
-    return resolve(response);
-  };
-};
-const getPayloadProperty = (payload, prop, defaults = {}) => {
-  if (typeof payload === "object") {
-    const value = payload[prop] ? payload[prop] : {};
-    return (0, _objectSpread2.default)((0, _objectSpread2.default)({}, defaults), value);
-  }
-  return defaults;
-};
-const execute = params => {
-  const {
-    app,
-    url,
-    payload
-  } = params;
-  const query = getPayloadProperty(payload, "query", {});
-  const headers = getPayloadProperty(payload, "headers", {
-    ["content-type"]: "application/json"
-  });
-  const cookies = getPayloadProperty(payload, "cookies", {});
-  return new Promise(resolve => {
-    app.inject({
-      method: "POST",
-      url,
-      payload: payload || {},
-      query,
-      headers,
-      cookies
-    }, createHandleResponse(app, resolve));
-  });
-};
-exports.execute = execute;
-
-/***/ }),
-
-/***/ "./packages/handler-aws/dist/plugins/handlerClient.js":
-/*!************************************************************!*\
-  !*** ./packages/handler-aws/dist/plugins/handlerClient.js ***!
-  \************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = (__webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js")["default"]);
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.createHandlerClientPlugin = void 0;
-var _lambda = _interopRequireDefault(__webpack_require__(/*! aws-sdk/clients/lambda */ "aws-sdk/clients/lambda"));
-var _handlerClient = __webpack_require__(/*! @webiny/handler-client */ "./packages/handler-client/dist/index.js");
-const createHandlerClientPlugin = () => {
-  const plugin = new _handlerClient.HandlerClientPlugin({
-    invoke: async params => {
-      const {
-        await: useAwait,
-        name,
-        payload
-      } = params;
-
-      //const lambdaClient = new LambdaClient({
-      //     region: process.env.AWS_REGION
-      // });
-      //@536
-      const lambdaClient = new _lambda.default({
-        region: process.env.AWS_REGION,
-        endpoint: "172.17.0.2:4566",
-        sslEnabled: false,
-        accessKeyId: "test",
-        secretAccessKey: "test",
-        s3ForcePathStyle: true
-      });
-      const response = await lambdaClient.invoke({
-        FunctionName: name,
-        InvocationType: useAwait === false ? "Event" : "RequestResponse",
-        Payload: JSON.stringify(payload)
-      }).promise();
-      if (useAwait === false) {
-        return null;
-      }
-      const Payload = response.Payload;
-      return JSON.parse(Payload);
-    },
-    canUse: params => {
-      if (!(params !== null && params !== void 0 && params.name)) {
-        return true;
-      }
-      const {
-        name
-      } = params;
-      /**
-       * In case we are invoking currently active lambda, let's use this plugin as well.
-       * When invoking some other lambda, name starts with arn.
-       */
-      if (name === process.env.AWS_LAMBDA_FUNCTION_NAME) {
-        return true;
-      }
-      //return name.match("arn:") !== null;
-      //@536
-      return name.match("/invocations") !== null;
-    }
-  });
-  plugin.name = "handler-client";
-  return plugin;
-};
-exports.createHandlerClientPlugin = createHandlerClientPlugin;
-
-/***/ }),
-
-/***/ "./packages/handler-aws/dist/plugins/index.js":
-/*!****************************************************!*\
-  !*** ./packages/handler-aws/dist/plugins/index.js ***!
-  \****************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.registerDefaultPlugins = void 0;
-var _handlerClient = __webpack_require__(/*! ./handlerClient */ "./packages/handler-aws/dist/plugins/handlerClient.js");
-const registerDefaultPlugins = context => {
-  context.plugins.register([(0, _handlerClient.createHandlerClientPlugin)()]);
-};
-exports.registerDefaultPlugins = registerDefaultPlugins;
-
-/***/ }),
-
-/***/ "./packages/handler-aws/dist/raw/index.js":
-/*!************************************************!*\
-  !*** ./packages/handler-aws/dist/raw/index.js ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = (__webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js")["default"]);
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-var _exportNames = {
-  createHandler: true
-};
-exports.createHandler = void 0;
-var _objectSpread2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectSpread2 */ "./node_modules/@babel/runtime/helpers/objectSpread2.js"));
-var _handler = __webpack_require__(/*! @webiny/handler */ "./packages/handler/dist/index.js");
-var _RawEventHandler = __webpack_require__(/*! ./plugins/RawEventHandler */ "./packages/handler-aws/dist/raw/plugins/RawEventHandler.js");
-Object.keys(_RawEventHandler).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
-  if (key in exports && exports[key] === _RawEventHandler[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _RawEventHandler[key];
-    }
-  });
-});
-var _plugins = __webpack_require__(/*! ../plugins */ "./packages/handler-aws/dist/plugins/index.js");
-var _execute = __webpack_require__(/*! ../execute */ "./packages/handler-aws/dist/execute.js");
-/**
- * This is the handler implementation for @webiny/handler/plugins/EventPlugin.
- * This is mostly meant for some custom lambda calls as we are sometimes invoking lambdas directly.
- *
- * We should try to have some kind of standardized event type implementation at some point.
- */
-
-const Reply = __webpack_require__(/*! fastify/lib/reply */ "./node_modules/fastify/lib/reply.js");
-const url = "/webiny-raw-event";
-const createHandler = params => {
-  return (payload, context) => {
-    var _params$http;
-    const app = (0, _handler.createHandler)((0, _objectSpread2.default)((0, _objectSpread2.default)({}, params), {}, {
-      options: (0, _objectSpread2.default)({
-        logger: ((_params$http = params.http) === null || _params$http === void 0 ? void 0 : _params$http.debug) === true
-      }, params.options || {})
-    }));
-    /**
-     * We always must add our default plugins to the app.
-     */
-    (0, _plugins.registerDefaultPlugins)(app.webiny);
-    /**
-     * There must be an event plugin for this handler to work.
-     */
-    const plugins = app.webiny.plugins.byType(_RawEventHandler.RawEventHandler.type);
-    const handler = plugins.shift();
-    if (!handler) {
-      throw new Error(`To run @webiny/handler-aws/raw, you must have RawEventHandler set.`);
-    }
-    app.post(url, async (request, reply) => {
-      const params = {
-        request,
-        reply,
-        context: app.webiny,
-        payload,
-        lambdaContext: context
-      };
-      const result = await handler.cb(params);
-      if (result instanceof Reply) {
-        return result;
-      }
-      app.__webiny_raw_result = result;
-      return reply.send({});
-    });
-    return (0, _execute.execute)({
-      app,
-      url,
-      payload
-    });
-  };
-};
-exports.createHandler = createHandler;
-
-/***/ }),
-
-/***/ "./packages/handler-aws/dist/raw/plugins/RawEventHandler.js":
-/*!******************************************************************!*\
-  !*** ./packages/handler-aws/dist/raw/plugins/RawEventHandler.js ***!
-  \******************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.createEventHandler = exports.RawEventHandler = void 0;
-var _handler = __webpack_require__(/*! @webiny/handler */ "./packages/handler/dist/index.js");
-class RawEventHandler extends _handler.EventPlugin {
-  constructor(cb) {
-    super(cb);
-  }
-}
-exports.RawEventHandler = RawEventHandler;
-const createEventHandler = cb => {
-  return new RawEventHandler(cb);
-};
-exports.createEventHandler = createEventHandler;
-
-/***/ }),
-
-/***/ "./packages/handler-aws/dist/types.js":
-/*!********************************************!*\
-  !*** ./packages/handler-aws/dist/types.js ***!
-  \********************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-var _exportNames = {
-  Base64EncodeHeader: true
-};
-exports.Base64EncodeHeader = void 0;
-__webpack_require__(/*! fastify */ "./node_modules/fastify/fastify.js");
-var _types = __webpack_require__(/*! @webiny/handler/types */ "./packages/handler/dist/types.js");
-Object.keys(_types).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
-  if (key in exports && exports[key] === _types[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _types[key];
-    }
-  });
-});
-let Base64EncodeHeader;
-exports.Base64EncodeHeader = Base64EncodeHeader;
-(function (Base64EncodeHeader) {
-  Base64EncodeHeader["encoded"] = "x-webiny-base64-encoded";
-  Base64EncodeHeader["binary"] = "x-webiny-binary";
-})(Base64EncodeHeader || (exports.Base64EncodeHeader = Base64EncodeHeader = {}));
 
 /***/ }),
 
@@ -2308,34 +1988,6 @@ const createRoute = cb => {
   return new RoutePlugin(cb);
 };
 exports.createRoute = createRoute;
-
-/***/ }),
-
-/***/ "./packages/handler/dist/types.js":
-/*!****************************************!*\
-  !*** ./packages/handler/dist/types.js ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-Object.defineProperty(exports, "FastifyInstance", ({
-  enumerable: true,
-  get: function () {
-    return _fastify.FastifyInstance;
-  }
-}));
-Object.defineProperty(exports, "HTTPMethods", ({
-  enumerable: true,
-  get: function () {
-    return _fastify.HTTPMethods;
-  }
-}));
-var _fastify = __webpack_require__(/*! fastify */ "./node_modules/fastify/fastify.js");
 
 /***/ }),
 
@@ -52228,17 +51880,6 @@ function zeroPadRight(n, length, radix) {
 
 /***/ }),
 
-/***/ "aws-sdk/clients/lambda":
-/*!*****************************************!*\
-  !*** external "aws-sdk/clients/lambda" ***!
-  \*****************************************/
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("aws-sdk/clients/lambda");
-
-/***/ }),
-
 /***/ "aws-sdk/clients/s3":
 /*!*************************************!*\
   !*** external "aws-sdk/clients/s3" ***!
@@ -64091,18 +63732,6 @@ module.exports = JSON.parse('{"name":"zerop","version":"1.0.1","description":"Pa
 /******/ 	__webpack_require__.c = __webpack_module_cache__;
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
