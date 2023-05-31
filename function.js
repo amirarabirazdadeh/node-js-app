@@ -33,7 +33,7 @@ const handler = async (event, context) => {
     };
     const ev2 = createLambdaEvent({
       httpMethod: "GET",
-      path: "/",
+      path: "/images",
       body: JSON.stringify(event),
       //headers: context.clientContext.headers,
       headers: tmpHeaders,
@@ -43,7 +43,7 @@ const handler = async (event, context) => {
       plugins: [new _webiny_handler_aws__WEBPACK_IMPORTED_MODULE_1__.RoutePlugin(({
         onGet
       }) => {
-        onGet("/", async (request, reply) => {
+        onGet("/images", async (request, reply) => {
           return reply
           // .headers({
           //     "CCCCCCCCCCCC": "PPPPPPPPPPPPP"
