@@ -24,49 +24,65 @@ const createLambdaEvent = (options = {}) => {
     body: null
   }, options);
 };
-const handler = async (event, context) => {
-  try {
-    const tmpHeaders = {
-      "x-tenant": "root",
-      "content-type": "application/json; charset=utf-8",
-      "x-i18n-locale": "default:en-US;content:en-US"
-    };
-    const ev2 = createLambdaEvent({
-      httpMethod: "GET",
-      path: "/graphql",
-      body: JSON.stringify(event),
-      //headers: context.clientContext.headers,
-      headers: tmpHeaders,
-      isBase64Encoded: event.isBase64Encoded || false
+const handler = (0,_webiny_handler_aws__WEBPACK_IMPORTED_MODULE_1__.createApiGatewayHandler)({
+  plugins: [new _webiny_handler_aws__WEBPACK_IMPORTED_MODULE_1__.RoutePlugin(({
+    onGet
+  }) => {
+    onGet("/graphql", async (request, reply) => {
+      return reply.headers({
+        "BBBBBBbbbbb": "PPPPPPPPPPPPP"
+      }).send({
+        message: "Hello World!!@"
+      });
     });
-    const handler = (0,_webiny_handler_aws__WEBPACK_IMPORTED_MODULE_1__.createApiGatewayHandler)({
-      plugins: [new _webiny_handler_aws__WEBPACK_IMPORTED_MODULE_1__.RoutePlugin(({
-        onGet
-      }) => {
-        onGet("/graphql", async (request, reply) => {
-          return reply.headers({
-            "CCCCCCCCCCCC": "PPPPPPPPPPPPP"
-          }).send({
-            message: "Hello World!!@"
-          });
-        });
-      })]
-    });
+  })]
+});
 
-    //await handler(ev1, context);
-    const response = await handler(ev2, context);
+//   export const handler = async (event: any, context: Context): Promise<any> => {
+//     try {   
 
-    //return JSON.parse(response.body);
-    return response;
-  } catch (err) {
-    return {
-      statusCode: 500,
-      body: "HANDLER.ERROR: Graphql handler error occured!" + JSON.stringify(err),
-      headers: {},
-      isBase64Encoded: false
-    };
-  }
-};
+//      const tmpHeaders = {
+//        "x-tenant": "root", "content-type": "application/json; charset=utf-8", "x-i18n-locale": "default:en-US;content:en-US"
+//       } 
+
+//     const ev2 = createLambdaEvent({ 
+//         httpMethod: "GET",
+//         path: "/graphql",
+//         body: JSON.stringify(event),
+//         //headers: context.clientContext.headers,
+//         headers: tmpHeaders,
+//         isBase64Encoded: event.isBase64Encoded || false
+//       });  
+
+//       const handler = createHandler({
+//         plugins: [
+//             new RoutePlugin(({ onGet }) => {
+//                 onGet("/graphql", async (request, reply) => {                
+//                     return reply                    
+//                     .headers({
+//                         "CCCCCCCCCCCC": "PPPPPPPPPPPPP"
+//                     })
+//                     .send({message: "Hello World!!@"});
+//                 });
+//             }),
+//         ]
+//       });
+
+//       //await handler(ev1, context);
+//       const response = await handler(ev2, context);
+
+//       //return JSON.parse(response.body);
+//       return response;
+
+//     } catch (err) {
+//       return{
+//         statusCode: 500,
+//         body: "HANDLER.ERROR: Graphql handler error occured!" + JSON.stringify(err),
+//         headers: {},
+//         isBase64Encoded: false
+//       }
+//     }
+//   };
 
 /***/ }),
 
