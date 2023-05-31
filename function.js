@@ -90,13 +90,14 @@ const handler = async (event, context) => {
     //    "x-tenant": "root", "content-type": "application/json; charset=utf-8", "x-i18n-locale": "default:en-US;content:en-US", "authorization": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjIxZjdlOWNiLTJkOWEtNGQyNi1hOTFjLTM4N2UxNGQzZThlMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODUyNjcyMjIsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDU2Ni91cy1lYXN0LTFfOGU4YzNlMDIwYjlkNGJlYTk5MmMzMDAxODhhZTcwNmMiLCJzdWIiOiIxZTZmZTQ4MC0yYTY4LTRjZGMtYWE0YS1jOGYyZWNmMzU1YzMiLCJhdXRoX3RpbWUiOjE2ODUyNjM2MjIsImlhdCI6MTY4NTI2MzYyMiwiZXZlbnRfaWQiOiIwMmEzODE3NC1lNGYwLTQ4YzAtYmFhNC0zNGFiMzdjYTc5OGQiLCJ0b2tlbl91c2UiOiJpZCIsImNvZ25pdG86dXNlcm5hbWUiOiJhbWlyYXJhYmkxMzYyQGdtYWlsLmNvbSIsImVtYWlsIjoiYW1pcmFyYWJpMTM2MkBnbWFpbC5jb20iLCJhdWQiOiJxNnZqamQwNGswbnYwNnc5b2ZpbzhicXhqdCIsImdpdmVuX25hbWUiOiJBbWlyIiwiZmFtaWx5X25hbWUiOiJBcmFiaSIsInByZWZlcnJlZF91c2VybmFtZSI6ImFtaXJhcmFiaTEzNjJAZ21haWwuY29tIiwiY3VzdG9tOmlkIjoiNjQ3MThmM2Y1ODUwNzgwMDBkMTg4ZDM2IiwiZW1haWxfdmVyaWZpZWQiOiJ0cnVlIiwiY29nbml0bzp1c2VyX3N0YXR1cyI6IkNPTkZJUk1FRCJ9.oGJELVCp1_CHtwm-f8VZoC2EDQGycE6RdSyi6rAgNJFUCi7TUWrMhv8OlbHc6dZ0uLBgNYxpio93k05zb_drRwRcluyFIS_fb9dIEOi0KtwzuGC8krN_RU4dZgx7BBfMF_yDu3YRcfg3E7-sQUCYMOJgtr4HG9smDJtA4FZrQSXSs1GyjI_V6ZCe8GligXa7x_9TyWj5nVBlT5aBnQtsMxW3e5AHzxeF7PNmW0sxlzVWqVSGycXpF364BM31DijORRBqmHiipuwIizchYZWUq80dzPo-szQzL_U6HpWsQHC-mOhDxpN3xp4nPGSvLfSuk7ZNjUihzf81NClBlvWJUg"
     //   }   
 
-    const tmpHeaders = context.clientContext ? context.clientContext.headers : undefined;
+    //const tmpHeaders = context.clientContext ? context.clientContext.headers : undefined;
+
     const ev2 = createLambdaEvent({
       httpMethod: "POST",
       path: "/graphql",
       body: JSON.stringify(bd),
       //headers: context.clientContext.headers,
-      headers: tmpHeaders,
+      //headers: tmpHeaders,
       isBase64Encoded: event.isBase64Encoded || false
     });
     const handler = (0,_webiny_handler_aws__WEBPACK_IMPORTED_MODULE_1__.createApiGatewayHandler)({
