@@ -52,15 +52,17 @@ const handler = async (event, context) => {
 
     // const path = context.clientContext ? context.clientContext.path : "/graphql";
 
-    // const tmpHeaders = {
-    //          "x-tenant": "root", "content-type": "image/jpeg", "x-i18n-locale": "default:en-US;content:en-US"
-    //    } 
+    const tmpHeaders = {
+      "x-tenant": "root",
+      "content-type": "image/jpeg",
+      "x-i18n-locale": "default:en-US;content:en-US"
+    };
     //JSON.stringify({"width": "300"}) 
     const ev2 = createLambdaEvent({
       httpMethod: "GET",
       path: "/files/647190857e9bed000d85c179/Sample_abc.jpg?width=300",
       body: null,
-      //headers: tmpHeaders,
+      headers: tmpHeaders,
       isBase64Encoded: true
     });
     const handler = (0,_webiny_handler_aws_gateway__WEBPACK_IMPORTED_MODULE_1__.createHandler)({
@@ -71,7 +73,7 @@ const handler = async (event, context) => {
 
     //await handler(ev1, context);
     const response = await handler(ev2, context);
-    return "data:image/jpeg;base64," + response.body;
+    return response.body;
     //return response;
   } catch (err) {
     return {
