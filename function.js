@@ -28,7 +28,7 @@ const handler = async (event, context) => {
   try {
     const tmpHeaders = {
       "x-tenant": "root",
-      "content-type": "application/json; charset=utf-8",
+      "content-type": "text/plain",
       "x-i18n-locale": "default:en-US;content:en-US"
     };
     const ev2 = createLambdaEvent({
@@ -46,9 +46,7 @@ const handler = async (event, context) => {
         onPost("/graphql", async (request, reply) => {
           return reply.headers({
             "XXXXXXXXXXXXX": "PPPPPPPPPPPPP"
-          }).send({
-            message: "Hello World!!@"
-          });
+          }).send("Hello World!@@");
         });
       })]
     });
