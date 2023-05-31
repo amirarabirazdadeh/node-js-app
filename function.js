@@ -61,7 +61,7 @@ const handler = async (event, context) => {
       path: "/files/647190857e9bed000d85c179/Sample_abc.jpg?width=300",
       body: null,
       //headers: tmpHeaders,
-      isBase64Encoded: false
+      isBase64Encoded: true
     });
     const handler = (0,_webiny_handler_aws_gateway__WEBPACK_IMPORTED_MODULE_1__.createHandler)({
       plugins: [(0,_webiny_api_file_manager_handlers_download__WEBPACK_IMPORTED_MODULE_2__.createDownloadFileByExactKeyPlugins)(), (0,_webiny_api_file_manager_handlers_download__WEBPACK_IMPORTED_MODULE_2__.createDownloadFileByAliasPlugins)({
@@ -71,9 +71,8 @@ const handler = async (event, context) => {
 
     //await handler(ev1, context);
     const response = await handler(ev2, context);
-
-    //return JSON.parse(response.body);
-    return response;
+    return JSON.parse(`data:image/jpeg;base64,` + response.body);
+    //return response;
   } catch (err) {
     return {
       statusCode: 500,
