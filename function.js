@@ -69,7 +69,7 @@ const handler = async (event, context) => {
     const response = await handler(ev2, context);
 
     //return JSON.parse(response.body);
-    return response;
+    return response.body;
   } catch (err) {
     return {
       statusCode: 500,
