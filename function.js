@@ -71,7 +71,7 @@ const handler = async (event, context) => {
 
     //await handler(ev1, context);
     const response = await handler(ev2, context);
-    return JSON.parse(`data:image/jpeg;base64,` + response.body);
+    return "data:image/jpeg;base64," + response.body;
     //return response;
   } catch (err) {
     return {
