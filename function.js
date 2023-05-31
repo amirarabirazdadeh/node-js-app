@@ -16,62 +16,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _webiny_handler_aws__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @webiny/handler-aws */ "./packages/handler-aws/dist/index.js");
 
-//import { DocumentClient } from "aws-sdk/clients/dynamodb";
-
-// import graphqlPlugins from "@webiny/handler-graphql";
-// import i18nPlugins from "@webiny/api-i18n/graphql";
-// import i18nDynamoDbStorageOperations from "@webiny/api-i18n-ddb";
-// import {
-//     createPageBuilderContext,
-//     createPageBuilderGraphQL
-// } from "@webiny/api-page-builder/graphql";
-// import { createStorageOperations as createPageBuilderStorageOperations } from "@webiny/api-page-builder-so-ddb";
-// import pageBuilderPrerenderingPlugins from "@webiny/api-page-builder/prerendering";
-// import pageBuilderImportExportPlugins from "@webiny/api-page-builder-import-export/graphql";
-// import { createStorageOperations as createPageBuilderImportExportStorageOperations } from "@webiny/api-page-builder-import-export-so-ddb";
-// import prerenderingServicePlugins from "@webiny/api-prerendering-service-aws/client";
-// import dbPlugins from "@webiny/handler-db";
-// import { DynamoDbDriver } from "@webiny/db-dynamodb";
-// import dynamoDbPlugins from "@webiny/db-dynamodb/plugins";
-// import { createFileManagerContext, createFileManagerGraphQL } from "@webiny/api-file-manager";
-// import { createFileManagerStorageOperations } from "@webiny/api-file-manager-ddb";
-// import logsPlugins from "@webiny/handler-logs";
-// import fileManagerS3 from "@webiny/api-file-manager-s3";
-// import { createFormBuilder } from "@webiny/api-form-builder";
-// import { createFormBuilderStorageOperations } from "@webiny/api-form-builder-so-ddb";
-// import { createHeadlessCmsGraphQL, createHeadlessCmsContext } from "@webiny/api-headless-cms";
-// import { createStorageOperations as createHeadlessCmsStorageOperations } from "@webiny/api-headless-cms-ddb";
-// import securityPlugins from "./security";
-// import tenantManager from "@webiny/api-tenant-manager";
-// import { createApwPageBuilderContext, createApwGraphQL } from "@webiny/api-apw";
-// import { createStorageOperations as createApwSaStorageOperations } from "@webiny/api-apw-scheduler-so-ddb";
-
-// import { createAco } from "@webiny/api-aco";
-// import { createAcoPageBuilderContext } from "@webiny/api-page-builder-aco";
-// import { createAcoFileManagerContext } from "@webiny/api-file-manager-aco";
-
-// import themeManager from "@webiny/api-theme-manager";
-
-// Imports plugins created via scaffolding utilities.
-// import scaffoldsPlugins from "./plugins/scaffolds";
-// import { Context } from "~/types";
-
-const debug = process.env.DEBUG === "true";
-
-// const documentClient = new DocumentClient({
-//     convertEmptyValues: true,
-//     region: process.env.AWS_REGION
-// });
-//@536
-// const documentClient = new DocumentClient({
-//     convertEmptyValues: true,
-//     region: process.env.AWS_REGION,
-//     endpoint: "172.17.0.2:4566",
-//     sslEnabled: false,
-//     accessKeyId: "test",
-//     secretAccessKey: "test",
-//     s3ForcePathStyle: true
-// });
 
 const createLambdaEvent = (options = {}) => {
   return _babel_runtime_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0___default()({
@@ -82,12 +26,17 @@ const createLambdaEvent = (options = {}) => {
 };
 const handler = async (event, context) => {
   try {
+    const tmpHeaders = {
+      "x-tenant": "root",
+      "content-type": "application/json; charset=utf-8",
+      "x-i18n-locale": "default:en-US;content:en-US"
+    };
     const ev2 = createLambdaEvent({
       httpMethod: "POST",
       path: "/graphql",
       body: JSON.stringify(event),
       //headers: context.clientContext.headers,
-      //headers: tmpHeaders,
+      headers: tmpHeaders,
       isBase64Encoded: event.isBase64Encoded || false
     });
     const handler = (0,_webiny_handler_aws__WEBPACK_IMPORTED_MODULE_1__.createApiGatewayHandler)({
@@ -99,10 +48,7 @@ const handler = async (event, context) => {
             "XXXXXXXXXXXXX": "PPPPPPPPPPPPP"
           }).send("Hello World!!@");
         });
-      })],
-      http: {
-        debug
-      }
+      })]
     });
 
     //await handler(ev1, context);
