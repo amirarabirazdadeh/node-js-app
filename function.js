@@ -32,7 +32,7 @@ const handler = async (event, context) => {
       "x-i18n-locale": "default:en-US;content:en-US"
     };
     const ev2 = createLambdaEvent({
-      httpMethod: "POST",
+      httpMethod: "GET",
       path: "/graphql",
       body: JSON.stringify(event),
       //headers: context.clientContext.headers,
@@ -41,11 +41,11 @@ const handler = async (event, context) => {
     });
     const handler = (0,_webiny_handler_aws__WEBPACK_IMPORTED_MODULE_1__.createApiGatewayHandler)({
       plugins: [new _webiny_handler_aws__WEBPACK_IMPORTED_MODULE_1__.RoutePlugin(({
-        onPost
+        onGet
       }) => {
-        onPost("/graphql", async (request, reply) => {
+        onGet("/graphql", async (request, reply) => {
           return reply.headers({
-            "XXXXXXXXXXXXX": "PPPPPPPPPPPPP"
+            "CCCCCCCCCCCC": "PPPPPPPPPPPPP"
           }).send({
             message: "Hello World!!@"
           });
