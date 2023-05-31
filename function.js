@@ -44,7 +44,11 @@ const handler = async (event, context) => {
         onPost
       }) => {
         onPost("/graphql", async (request, reply) => {
-          return reply.send("Hello World!!@");
+          return reply.headers({
+            "XXXXXXXXXXXXX": "PPPPPPPPPPPPP"
+          }).send({
+            message: "Hello World!!@"
+          });
         });
       })]
     });
