@@ -49,13 +49,15 @@ const handler = async (event, context) => {
       }) => {
         onGet("/images", async (request, reply) => {
           return reply
+
           // .headers({
           //     "VVVVVVVVVVVVV": "PPPPPPPPPPPPP",
           //     "X-Amz-Client-Context": "eyJYWFhYWFgiOiJRUVFRUVFRUVEifQ=="
           // })
           // .send({message: "Hello World!!@"});
-          .headers({
+          .code(301).headers({
             //"Content-Type": "image/jpeg",
+            Location: "http://172.17.0.2:4566/wby-fm-bucket-c408626/647190857e9bed000d85c179/img-o-t-8d26ce6615b9547084e71e6914dcb00134c5472b-Sample_abc.jpg?AWSAccessKeyId=test&Expires=1685428672&Signature=sVNFfNRi%2Bt5yOVcSg7n9D8OsP1M%3D&X-Amzn-Trace-Id=Root%3D1-dc99d00f-c079a84d433534434534ef0d%3BParent%3D91ed514f1e5c03b2%3BSampled%3D1",
             "Cache-Control": `public, max-age=30758400`
             //"x-webiny-base64-encoded": true
           }).send("");
@@ -65,8 +67,9 @@ const handler = async (event, context) => {
 
     //await handler(ev1, context);
     const response = await handler(ev2, context);
-    return response.body;
-    //return response;
+
+    //return response.body;
+    return response;
   } catch (err) {
     return {
       statusCode: 500,
