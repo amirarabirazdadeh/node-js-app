@@ -55,10 +55,10 @@ const handler = async (event, context) => {
           // })
           // .send({message: "Hello World!!@"});
           .headers({
-            "Content-Type": "image/jpeg",
-            "Cache-Control": `public, max-age=30758400`,
-            "x-webiny-base64-encoded": true
-          }).send(img);
+            //"Content-Type": "image/jpeg",
+            "Cache-Control": `public, max-age=30758400`
+            //"x-webiny-base64-encoded": true
+          }).send("");
         });
       })]
     });
