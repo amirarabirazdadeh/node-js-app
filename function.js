@@ -24,7 +24,7 @@ const createLambdaEvent = (options = {}) => {
     body: null
   }, options);
 };
-const handler = async (event, context) => {
+const handler = async (event, context, callback) => {
   try {
     const tmpHeaders = {
       "x-tenant": "root",
@@ -63,9 +63,10 @@ const handler = async (event, context) => {
 
     //await handler(ev1, context);
     const response = await handler(ev2, context);
+    callback(null, response);
 
     //return JSON.parse(response.body);
-    return response;
+    //return response;
   } catch (err) {
     return {
       statusCode: 500,
