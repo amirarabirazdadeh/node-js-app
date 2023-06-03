@@ -1,10 +1,10 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./apps/api/graphql/src/index.ts":
-/*!***************************************!*\
-  !*** ./apps/api/graphql/src/index.ts ***!
-  \***************************************/
+/***/ "./apps/api/fileManager/transform/src/index.ts":
+/*!*****************************************************!*\
+  !*** ./apps/api/fileManager/transform/src/index.ts ***!
+  \*****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12,73 +12,404 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "handler": () => (/* binding */ handler)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/objectSpread2 */ "./node_modules/@babel/runtime/helpers/objectSpread2.js");
-/* harmony import */ var _babel_runtime_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _webiny_handler_aws__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @webiny/handler-aws */ "./packages/handler-aws/dist/index.js");
+/* harmony import */ var _webiny_handler_aws_raw__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @webiny/handler-aws/raw */ "./packages/handler-aws/dist/raw/index.js");
+/* harmony import */ var _webiny_handler_aws_raw__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_webiny_handler_aws_raw__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _webiny_api_file_manager_handlers_transform__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @webiny/api-file-manager/handlers/transform */ "./packages/api-file-manager/dist/handlers/transform/index.js");
 
 
-const {
-  Base64
-} = __webpack_require__(/*! js-base64 */ "./node_modules/js-base64/base64.js");
-const createLambdaEvent = (options = {}) => {
-  return _babel_runtime_helpers_objectSpread2__WEBPACK_IMPORTED_MODULE_0___default()({
-    httpMethod: "POST",
-    path: "/images",
-    body: null
-  }, options);
-};
 const handler = async (event, context) => {
   try {
-    const tmpHeaders = {
-      "x-tenant": "root",
-      "Content-Type": "application/json; charset=utf-8",
-      "x-i18n-locale": "default:en-US;content:en-US"
-    };
-    const ev2 = createLambdaEvent({
-      httpMethod: "GET",
-      path: "/images",
-      body: JSON.stringify(event),
-      //headers: context.clientContext.headers,
-      headers: tmpHeaders,
-      isBase64Encoded: event.isBase64Encoded || false
+    context.invokedFunctionArn = "http://localhost:3033/2015-03-31/functions/function.handler/invocations";
+
+    //return JSON.stringify(context);
+
+    const handler = (0,_webiny_handler_aws_raw__WEBPACK_IMPORTED_MODULE_0__.createHandler)({
+      plugins: [(0,_webiny_api_file_manager_handlers_transform__WEBPACK_IMPORTED_MODULE_1__.createTransformFilePlugins)()]
     });
-    const img = Base64.decode("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");
-    const handler = (0,_webiny_handler_aws__WEBPACK_IMPORTED_MODULE_1__.createApiGatewayHandler)({
-      plugins: [new _webiny_handler_aws__WEBPACK_IMPORTED_MODULE_1__.RoutePlugin(({
-        onGet
-      }) => {
-        onGet("/images", async (request, reply) => {
-          return reply
-
-          // .headers({
-          //     "VVVVVVVVVVVVV": "PPPPPPPPPPPPP",
-          //     "X-Amz-Client-Context": "eyJYWFhYWFgiOiJRUVFRUVFRUVEifQ=="
-          // })
-          // .send({message: "Hello World!!@"});
-          .code(301).headers({
-            //"Content-Type": "image/jpeg",
-            Location: "http://172.17.0.2:4566/wby-fm-bucket-c408626/647190857e9bed000d85c179/img-o-t-8d26ce6615b9547084e71e6914dcb00134c5472b-Sample_abc.jpg?AWSAccessKeyId=test&Expires=1685428672&Signature=sVNFfNRi%2Bt5yOVcSg7n9D8OsP1M%3D&X-Amzn-Trace-Id=Root%3D1-dc99d00f-c079a84d433534434534ef0d%3BParent%3D91ed514f1e5c03b2%3BSampled%3D1",
-            "Cache-Control": `public, max-age=30758400`
-            //"x-webiny-base64-encoded": true
-          }).send("");
-        });
-      })]
-    });
-
-    //await handler(ev1, context);
-    const response = await handler(ev2, context);
-
-    //return response.body;
-    return response;
+    const response = await handler(event, context);
+    return JSON.parse(response.body);
   } catch (err) {
     return {
       statusCode: 500,
-      body: "HANDLER.ERROR: Graphql handler error occured!" + JSON.stringify(err),
+      body: "HANDLER.ERROR: Transformer handler error occured!" + JSON.stringify(err),
       headers: {},
       isBase64Encoded: false
     };
   }
 };
+
+/***/ }),
+
+/***/ "./packages/api-file-manager/dist/handlers/transform/index.js":
+/*!********************************************************************!*\
+  !*** ./packages/api-file-manager/dist/handlers/transform/index.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireWildcard = (__webpack_require__(/*! @babel/runtime/helpers/interopRequireWildcard */ "./node_modules/@babel/runtime/helpers/interopRequireWildcard.js")["default"]);
+var _interopRequireDefault = (__webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js")["default"]);
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.createTransformFilePlugins = void 0;
+var _objectSpread2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectSpread2 */ "./node_modules/@babel/runtime/helpers/objectSpread2.js"));
+var _s = _interopRequireDefault(__webpack_require__(/*! aws-sdk/clients/s3 */ "aws-sdk/clients/s3"));
+var _transformImage = _interopRequireDefault(__webpack_require__(/*! ./transformImage */ "./packages/api-file-manager/dist/handlers/transform/transformImage.js"));
+var _optimizeImage = _interopRequireDefault(__webpack_require__(/*! ./optimizeImage */ "./packages/api-file-manager/dist/handlers/transform/optimizeImage.js"));
+var _utils = __webpack_require__(/*! ../utils */ "./packages/api-file-manager/dist/handlers/utils/index.js");
+var newUtils = _interopRequireWildcard(__webpack_require__(/*! ./utils */ "./packages/api-file-manager/dist/handlers/transform/utils.js"));
+var legacyUtils = _interopRequireWildcard(__webpack_require__(/*! ./legacyUtils */ "./packages/api-file-manager/dist/handlers/transform/legacyUtils.js"));
+var _handler = __webpack_require__(/*! @webiny/handler */ "./packages/handler/dist/index.js");
+const createTransformFilePlugins = () => {
+  return [(0, _handler.createEvent)(async ({
+    payload
+  }) => {
+    const {
+      body
+    } = payload;
+    const {
+      key,
+      transformations
+    } = body;
+    try {
+      const env = (0, _utils.getEnvironment)();
+      //const s3 = new S3({ region: env.region });
+      //@536
+      const s3 = new _s.default({
+        region: env.region,
+        endpoint: "172.17.0.2:4566",
+        sslEnabled: false,
+        accessKeyId: "test",
+        secretAccessKey: "test",
+        s3ForcePathStyle: true
+      });
+      let optimizedImageObject;
+      const utils = key.includes("/") ? newUtils : legacyUtils;
+      const params = {
+        initial: (0, _utils.getObjectParams)(key),
+        optimized: (0, _utils.getObjectParams)(utils.getImageKey({
+          key
+        })),
+        optimizedTransformed: (0, _utils.getObjectParams)(utils.getImageKey({
+          key,
+          transformations
+        }))
+      };
+
+      // 1. Get optimized image.
+      try {
+        optimizedImageObject = await s3.getObject(params.optimized).promise();
+      } catch (e) {
+        // If not found, try to create it by loading the initially uploaded image.
+        optimizedImageObject = await s3.getObject(params.initial).promise();
+        await s3.putObject((0, _objectSpread2.default)((0, _objectSpread2.default)({}, params.optimized), {}, {
+          ContentType: optimizedImageObject.ContentType,
+          Body: await (0, _optimizeImage.default)(optimizedImageObject.Body, optimizedImageObject.ContentType)
+        })).promise();
+        optimizedImageObject = await s3.getObject(params.optimized).promise();
+      }
+
+      // 2. If no transformations requested, just exit.
+      if (!transformations) {
+        return {
+          error: false,
+          message: ""
+        };
+      }
+
+      // 3. If transformations requested, apply them in save it into the bucket.
+      await s3.putObject((0, _objectSpread2.default)((0, _objectSpread2.default)({}, params.optimizedTransformed), {}, {
+        ContentType: optimizedImageObject.ContentType,
+        Body: await (0, _transformImage.default)(optimizedImageObject.Body, transformations)
+      })).promise();
+      return {
+        error: false,
+        message: ""
+      };
+    } catch (ex) {
+      console.error(JSON.stringify({
+        message: ex.message,
+        code: ex.code,
+        data: ex.data
+      }));
+      return {
+        error: true,
+        message: ex.message
+      };
+    }
+  })];
+};
+exports.createTransformFilePlugins = createTransformFilePlugins;
+
+/***/ }),
+
+/***/ "./packages/api-file-manager/dist/handlers/transform/legacyUtils.js":
+/*!**************************************************************************!*\
+  !*** ./packages/api-file-manager/dist/handlers/transform/legacyUtils.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = (__webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js")["default"]);
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.getOptimizedTransformedImageKeyPrefix = exports.getOptimizedImageKeyPrefix = exports.getImageKey = exports.SUPPORTED_TRANSFORMABLE_IMAGES = exports.SUPPORTED_IMAGES = exports.OPTIMIZED_TRANSFORMED_IMAGE_PREFIX = exports.OPTIMIZED_IMAGE_PREFIX = void 0;
+var _objectHash = _interopRequireDefault(__webpack_require__(/*! object-hash */ "./node_modules/object-hash/index.js"));
+/**
+ * BACKWARDS-COMPATIBILITY!
+ *
+ * This file contains utilities for files that don't have `id/key` structure, meaning, all files created before 5.35.0 release.
+ */
+
+const SUPPORTED_IMAGES = [".jpg", ".jpeg", ".png", ".svg", ".gif"];
+exports.SUPPORTED_IMAGES = SUPPORTED_IMAGES;
+const SUPPORTED_TRANSFORMABLE_IMAGES = [".jpg", ".jpeg", ".png"];
+exports.SUPPORTED_TRANSFORMABLE_IMAGES = SUPPORTED_TRANSFORMABLE_IMAGES;
+const OPTIMIZED_TRANSFORMED_IMAGE_PREFIX = "img-o-t-";
+exports.OPTIMIZED_TRANSFORMED_IMAGE_PREFIX = OPTIMIZED_TRANSFORMED_IMAGE_PREFIX;
+const OPTIMIZED_IMAGE_PREFIX = "img-o-";
+exports.OPTIMIZED_IMAGE_PREFIX = OPTIMIZED_IMAGE_PREFIX;
+const getOptimizedImageKeyPrefix = key => {
+  return `${OPTIMIZED_IMAGE_PREFIX}${(0, _objectHash.default)(key)}-`;
+};
+exports.getOptimizedImageKeyPrefix = getOptimizedImageKeyPrefix;
+const getOptimizedTransformedImageKeyPrefix = key => {
+  return `${OPTIMIZED_TRANSFORMED_IMAGE_PREFIX}${(0, _objectHash.default)(key)}-`;
+};
+exports.getOptimizedTransformedImageKeyPrefix = getOptimizedTransformedImageKeyPrefix;
+const getImageKey = ({
+  key,
+  transformations
+}) => {
+  if (!transformations) {
+    const prefix = getOptimizedImageKeyPrefix(key);
+    return prefix + key;
+  }
+  const prefix = getOptimizedTransformedImageKeyPrefix(key);
+  return `${prefix}${(0, _objectHash.default)(transformations)}-${key}`;
+};
+exports.getImageKey = getImageKey;
+
+/***/ }),
+
+/***/ "./packages/api-file-manager/dist/handlers/transform/optimizeImage.js":
+/*!****************************************************************************!*\
+  !*** ./packages/api-file-manager/dist/handlers/transform/optimizeImage.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = (__webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js")["default"]);
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+var _sharp = _interopRequireDefault(__webpack_require__(/*! sharp */ "sharp"));
+/**
+ * Sharp is included in the AWS Lambda layer
+ */
+// @ts-ignore
+var _default = async (buffer, type) => {
+  switch (type) {
+    case "image/png":
+      {
+        return await (0, _sharp.default)(buffer).resize({
+          width: 2560,
+          withoutEnlargement: true,
+          fit: "inside"
+        }).png({
+          compressionLevel: 9,
+          adaptiveFiltering: true,
+          force: true
+        }).withMetadata().toBuffer();
+      }
+    case "image/jpeg":
+    case "image/jpg":
+      {
+        return await (0, _sharp.default)(buffer).resize({
+          width: 2560,
+          withoutEnlargement: true,
+          fit: "inside"
+        }).toFormat("jpeg", {
+          quality: 90
+        }).toBuffer();
+      }
+    default:
+      return buffer;
+  }
+};
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ "./packages/api-file-manager/dist/handlers/transform/transformImage.js":
+/*!*****************************************************************************!*\
+  !*** ./packages/api-file-manager/dist/handlers/transform/transformImage.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = (__webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js")["default"]);
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+var _sharp = _interopRequireDefault(__webpack_require__(/*! sharp */ "sharp"));
+/**
+ * Sharp is included in the AWS Lambda layer
+ */
+// @ts-ignore
+/**
+ * Only processing "width" at the moment.
+ * Check "sanitizeImageTransformations.js" to allow additional image processing transformations.
+ */
+var _default = async (buffer, transformations) => {
+  const {
+    width
+  } = transformations;
+  return await (0, _sharp.default)(buffer).resize({
+    width
+  }).toBuffer();
+};
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ "./packages/api-file-manager/dist/handlers/transform/utils.js":
+/*!********************************************************************!*\
+  !*** ./packages/api-file-manager/dist/handlers/transform/utils.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = (__webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js")["default"]);
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.getOptimizedTransformedImageKeyPrefix = exports.getOptimizedImageKeyPrefix = exports.getImageKey = exports.SUPPORTED_TRANSFORMABLE_IMAGES = exports.SUPPORTED_IMAGES = exports.OPTIMIZED_TRANSFORMED_IMAGE_PREFIX = exports.OPTIMIZED_IMAGE_PREFIX = void 0;
+var _objectHash = _interopRequireDefault(__webpack_require__(/*! object-hash */ "./node_modules/object-hash/index.js"));
+const SUPPORTED_IMAGES = [".jpg", ".jpeg", ".png", ".svg", ".gif"];
+exports.SUPPORTED_IMAGES = SUPPORTED_IMAGES;
+const SUPPORTED_TRANSFORMABLE_IMAGES = [".jpg", ".jpeg", ".png"];
+exports.SUPPORTED_TRANSFORMABLE_IMAGES = SUPPORTED_TRANSFORMABLE_IMAGES;
+const OPTIMIZED_TRANSFORMED_IMAGE_PREFIX = "img-o-t-";
+exports.OPTIMIZED_TRANSFORMED_IMAGE_PREFIX = OPTIMIZED_TRANSFORMED_IMAGE_PREFIX;
+const OPTIMIZED_IMAGE_PREFIX = "img-o-";
+exports.OPTIMIZED_IMAGE_PREFIX = OPTIMIZED_IMAGE_PREFIX;
+const getOptimizedImageKeyPrefix = key => {
+  const [id, name] = key.split("/");
+  return `${id}/${OPTIMIZED_IMAGE_PREFIX}${name}`;
+};
+exports.getOptimizedImageKeyPrefix = getOptimizedImageKeyPrefix;
+const getOptimizedTransformedImageKeyPrefix = (key, transformationsHash) => {
+  const [id, name] = key.split("/");
+  return `${id}/${OPTIMIZED_TRANSFORMED_IMAGE_PREFIX}${transformationsHash}-${name}`;
+};
+exports.getOptimizedTransformedImageKeyPrefix = getOptimizedTransformedImageKeyPrefix;
+const getImageKey = ({
+  key,
+  transformations
+}) => {
+  if (!transformations) {
+    return getOptimizedImageKeyPrefix(key);
+  }
+  return getOptimizedTransformedImageKeyPrefix(key, (0, _objectHash.default)(transformations));
+};
+exports.getImageKey = getImageKey;
+
+/***/ }),
+
+/***/ "./packages/api-file-manager/dist/handlers/utils/getEnvironment.js":
+/*!*************************************************************************!*\
+  !*** ./packages/api-file-manager/dist/handlers/utils/getEnvironment.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+var _default = () => ({
+  bucket: process.env.S3_BUCKET,
+  region: process.env.AWS_REGION
+});
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ "./packages/api-file-manager/dist/handlers/utils/getObjectParams.js":
+/*!**************************************************************************!*\
+  !*** ./packages/api-file-manager/dist/handlers/utils/getObjectParams.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = (__webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js")["default"]);
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+var _getEnvironment = _interopRequireDefault(__webpack_require__(/*! ./getEnvironment */ "./packages/api-file-manager/dist/handlers/utils/getEnvironment.js"));
+/**
+ * Returns website's Bucket and file's Key values.
+ */
+var _default = filename => {
+  const {
+    bucket: Bucket
+  } = (0, _getEnvironment.default)();
+  return {
+    Bucket,
+    Key: `${filename}`
+  };
+};
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ "./packages/api-file-manager/dist/handlers/utils/index.js":
+/*!****************************************************************!*\
+  !*** ./packages/api-file-manager/dist/handlers/utils/index.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = (__webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js")["default"]);
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+Object.defineProperty(exports, "getEnvironment", ({
+  enumerable: true,
+  get: function () {
+    return _getEnvironment.default;
+  }
+}));
+Object.defineProperty(exports, "getObjectParams", ({
+  enumerable: true,
+  get: function () {
+    return _getObjectParams.default;
+  }
+}));
+var _getEnvironment = _interopRequireDefault(__webpack_require__(/*! ./getEnvironment */ "./packages/api-file-manager/dist/handlers/utils/getEnvironment.js"));
+var _getObjectParams = _interopRequireDefault(__webpack_require__(/*! ./getObjectParams */ "./packages/api-file-manager/dist/handlers/utils/getObjectParams.js"));
 
 /***/ }),
 
@@ -580,230 +911,6 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ "./packages/handler-aws/dist/dynamodb/index.js":
-/*!*****************************************************!*\
-  !*** ./packages/handler-aws/dist/dynamodb/index.js ***!
-  \*****************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = (__webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js")["default"]);
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-var _exportNames = {
-  createHandler: true
-};
-exports.createHandler = void 0;
-var _objectSpread2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectSpread2 */ "./node_modules/@babel/runtime/helpers/objectSpread2.js"));
-var _handler = __webpack_require__(/*! @webiny/handler */ "./packages/handler/dist/index.js");
-var _DynamoDBEventHandler = __webpack_require__(/*! ./plugins/DynamoDBEventHandler */ "./packages/handler-aws/dist/dynamodb/plugins/DynamoDBEventHandler.js");
-Object.keys(_DynamoDBEventHandler).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
-  if (key in exports && exports[key] === _DynamoDBEventHandler[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _DynamoDBEventHandler[key];
-    }
-  });
-});
-var _plugins = __webpack_require__(/*! ../plugins */ "./packages/handler-aws/dist/plugins/index.js");
-var _execute = __webpack_require__(/*! ../execute */ "./packages/handler-aws/dist/execute.js");
-const Reply = __webpack_require__(/*! fastify/lib/reply */ "./node_modules/fastify/lib/reply.js");
-const url = "/webiny-dynamodb-event";
-const createHandler = params => {
-  return (payload, context) => {
-    const app = (0, _handler.createHandler)((0, _objectSpread2.default)((0, _objectSpread2.default)({}, params), {}, {
-      options: (0, _objectSpread2.default)({
-        logger: params.debug === true
-      }, params.options || {})
-    }));
-    /**
-     * We always must add our default plugins to the app.
-     */
-    (0, _plugins.registerDefaultPlugins)(app.webiny);
-    /**
-     * There must be an event plugin for this handler to work.
-     */
-    const plugins = app.webiny.plugins.byType(_DynamoDBEventHandler.DynamoDBEventHandler.type);
-    const handler = plugins.shift();
-    if (!handler) {
-      throw new Error(`To run @webiny/handler-aws/dynamodb, you must have DynamoDBHandler set.`);
-    }
-    app.post(url, async (request, reply) => {
-      const params = {
-        request,
-        context: app.webiny,
-        event: payload,
-        lambdaContext: context,
-        reply
-      };
-      const result = await handler.cb(params);
-      if (result instanceof Reply) {
-        return result;
-      }
-      app.__webiny_raw_result = result;
-      return reply.send({});
-    });
-    return (0, _execute.execute)({
-      app,
-      url,
-      payload
-    });
-  };
-};
-exports.createHandler = createHandler;
-
-/***/ }),
-
-/***/ "./packages/handler-aws/dist/dynamodb/plugins/DynamoDBEventHandler.js":
-/*!****************************************************************************!*\
-  !*** ./packages/handler-aws/dist/dynamodb/plugins/DynamoDBEventHandler.js ***!
-  \****************************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = (__webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js")["default"]);
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.createEventHandler = exports.DynamoDBEventHandler = void 0;
-var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js"));
-var _Plugin = __webpack_require__(/*! @webiny/plugins/Plugin */ "./packages/plugins/dist/Plugin.js");
-class DynamoDBEventHandler extends _Plugin.Plugin {
-  constructor(cb) {
-    super();
-    (0, _defineProperty2.default)(this, "cb", void 0);
-    this.cb = cb;
-  }
-}
-exports.DynamoDBEventHandler = DynamoDBEventHandler;
-(0, _defineProperty2.default)(DynamoDBEventHandler, "type", "handler.fastify.aws.dynamodb.eventHandler");
-const createEventHandler = cb => {
-  return new DynamoDBEventHandler(cb);
-};
-exports.createEventHandler = createEventHandler;
-
-/***/ }),
-
-/***/ "./packages/handler-aws/dist/eventBridge/index.js":
-/*!********************************************************!*\
-  !*** ./packages/handler-aws/dist/eventBridge/index.js ***!
-  \********************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = (__webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js")["default"]);
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-var _exportNames = {
-  createHandler: true
-};
-exports.createHandler = void 0;
-var _objectSpread2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectSpread2 */ "./node_modules/@babel/runtime/helpers/objectSpread2.js"));
-var _handler = __webpack_require__(/*! @webiny/handler */ "./packages/handler/dist/index.js");
-var _EventBridgeEventHandler = __webpack_require__(/*! ./plugins/EventBridgeEventHandler */ "./packages/handler-aws/dist/eventBridge/plugins/EventBridgeEventHandler.js");
-Object.keys(_EventBridgeEventHandler).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
-  if (key in exports && exports[key] === _EventBridgeEventHandler[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _EventBridgeEventHandler[key];
-    }
-  });
-});
-var _plugins = __webpack_require__(/*! ../plugins */ "./packages/handler-aws/dist/plugins/index.js");
-var _execute = __webpack_require__(/*! ../execute */ "./packages/handler-aws/dist/execute.js");
-const Reply = __webpack_require__(/*! fastify/lib/reply */ "./node_modules/fastify/lib/reply.js");
-const url = "/webiny-sqs-event";
-const createHandler = params => {
-  return (payload, context) => {
-    const app = (0, _handler.createHandler)((0, _objectSpread2.default)((0, _objectSpread2.default)({}, params), {}, {
-      options: (0, _objectSpread2.default)({
-        logger: params.debug === true
-      }, params.options || {})
-    }));
-    /**
-     * We always must add our default plugins to the app.
-     */
-    (0, _plugins.registerDefaultPlugins)(app.webiny);
-    /**
-     * There must be an event plugin for this handler to work.
-     */
-    const plugins = app.webiny.plugins.byType(_EventBridgeEventHandler.EventBridgeEventHandler.type);
-    const handler = plugins.shift();
-    if (!handler) {
-      throw new Error(`To run @webiny/handler-aws/eventBridge, you must have EventBridgeEventHandler set.`);
-    }
-    app.post(url, async (request, reply) => {
-      const params = {
-        request,
-        reply,
-        context: app.webiny,
-        payload,
-        lambdaContext: context
-      };
-      const result = await handler.cb(params);
-      if (result instanceof Reply) {
-        return result;
-      }
-      app.__webiny_raw_result = result;
-      return reply.send({});
-    });
-    return (0, _execute.execute)({
-      app,
-      url,
-      payload
-    });
-  };
-};
-exports.createHandler = createHandler;
-
-/***/ }),
-
-/***/ "./packages/handler-aws/dist/eventBridge/plugins/EventBridgeEventHandler.js":
-/*!**********************************************************************************!*\
-  !*** ./packages/handler-aws/dist/eventBridge/plugins/EventBridgeEventHandler.js ***!
-  \**********************************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = (__webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js")["default"]);
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.createEventHandler = exports.EventBridgeEventHandler = void 0;
-var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js"));
-var _Plugin = __webpack_require__(/*! @webiny/plugins/Plugin */ "./packages/plugins/dist/Plugin.js");
-class EventBridgeEventHandler extends _Plugin.Plugin {
-  constructor(cb) {
-    super();
-    (0, _defineProperty2.default)(this, "cb", void 0);
-    this.cb = cb;
-  }
-}
-exports.EventBridgeEventHandler = EventBridgeEventHandler;
-(0, _defineProperty2.default)(EventBridgeEventHandler, "type", "handler.fastify.aws.sqs.eventHandler");
-const createEventHandler = cb => {
-  return new EventBridgeEventHandler(cb);
-};
-exports.createEventHandler = createEventHandler;
-
-/***/ }),
-
 /***/ "./packages/handler-aws/dist/execute.js":
 /*!**********************************************!*\
   !*** ./packages/handler-aws/dist/execute.js ***!
@@ -875,371 +982,6 @@ exports.execute = execute;
 
 /***/ }),
 
-/***/ "./packages/handler-aws/dist/gateway/index.js":
-/*!****************************************************!*\
-  !*** ./packages/handler-aws/dist/gateway/index.js ***!
-  \****************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = (__webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js")["default"]);
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-Object.defineProperty(exports, "RoutePlugin", ({
-  enumerable: true,
-  get: function () {
-    return _handler.RoutePlugin;
-  }
-}));
-exports.createHandler = void 0;
-Object.defineProperty(exports, "createRoute", ({
-  enumerable: true,
-  get: function () {
-    return _handler.createRoute;
-  }
-}));
-var _objectSpread2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectSpread2 */ "./node_modules/@babel/runtime/helpers/objectSpread2.js"));
-var _awsLambda = _interopRequireDefault(__webpack_require__(/*! @fastify/aws-lambda */ "./node_modules/@fastify/aws-lambda/index.js"));
-var _handler = __webpack_require__(/*! @webiny/handler */ "./packages/handler/dist/index.js");
-var _plugins = __webpack_require__(/*! ../plugins */ "./packages/handler-aws/dist/plugins/index.js");
-var _types = __webpack_require__(/*! ../types */ "./packages/handler-aws/dist/types.js");
-const getHeader = (headers, header) => {
-  for (const key in headers) {
-    if (key.toLowerCase() !== header) {
-      continue;
-    }
-    return headers[key];
-  }
-  return undefined;
-};
-const defaultContentType = "application/json";
-const defaultCharset = "utf-8";
-/**
- * We need to attach default headers to the request, so it does not break if there is none sent.
- */
-const attachRequiredProperties = event => {
-  /**
-   * A possibility that headers are not defined?
-   * Maybe during testing?
-   */
-  if (!event.headers) {
-    event.headers = {};
-  }
-  const contentType = getHeader(event.headers, "content-type");
-  /**
-   * We check the existing content type and add the default one if it does not exist.
-   *
-   * Also, if the content-type is the application/json, and the body is not sent, we add it.
-   */
-  if (!contentType) {
-    event.headers["content-type"] = [defaultContentType, `charset=${defaultCharset}`].join(";");
-    event.body = "{}";
-  } else if (!event.body && contentType.startsWith(defaultContentType)) {
-    event.body = "{}";
-  }
-};
-const createHandler = params => {
-  return (event, context) => {
-    var _params$http;
-    const app = (0, _handler.createHandler)((0, _objectSpread2.default)((0, _objectSpread2.default)({}, params), {}, {
-      options: (0, _objectSpread2.default)({
-        logger: ((_params$http = params.http) === null || _params$http === void 0 ? void 0 : _params$http.debug) === true
-      }, params.options || {})
-    }));
-    /**
-     * We always must add our default plugins to the app.
-     */
-    (0, _plugins.registerDefaultPlugins)(app.webiny);
-    if (app.webiny.plugins.byType(_handler.RoutePlugin.type).length === 0) {
-      throw new Error(`To run @webiny/handler-aws/gateway, you must have at least one RoutePlugin set.`);
-    }
-    attachRequiredProperties(event);
-    const appLambda = (0, _awsLambda.default)(app, (0, _objectSpread2.default)({
-      decorateRequest: true,
-      serializeLambdaArguments: true,
-      decorationPropertyName: "awsLambda",
-      enforceBase64: response => {
-        return !!response.headers[_types.Base64EncodeHeader.encoded] || !!response.headers[_types.Base64EncodeHeader.binary];
-      }
-    }, params.lambdaOptions || {}));
-    return appLambda(event, context);
-  };
-};
-exports.createHandler = createHandler;
-
-/***/ }),
-
-/***/ "./packages/handler-aws/dist/index.js":
-/*!********************************************!*\
-  !*** ./packages/handler-aws/dist/index.js ***!
-  \********************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-Object.defineProperty(exports, "ContextPlugin", ({
-  enumerable: true,
-  get: function () {
-    return _handler.ContextPlugin;
-  }
-}));
-Object.defineProperty(exports, "ContextPluginCallable", ({
-  enumerable: true,
-  get: function () {
-    return _handler.ContextPluginCallable;
-  }
-}));
-Object.defineProperty(exports, "CreateApiGatewayHandlerParams", ({
-  enumerable: true,
-  get: function () {
-    return _gateway.CreateHandlerParams;
-  }
-}));
-Object.defineProperty(exports, "CreateDynamoDBHandlerParams", ({
-  enumerable: true,
-  get: function () {
-    return _dynamodb.CreateHandlerParams;
-  }
-}));
-Object.defineProperty(exports, "CreateEventBridgeHandlerParams", ({
-  enumerable: true,
-  get: function () {
-    return _eventBridge.CreateHandlerParams;
-  }
-}));
-Object.defineProperty(exports, "CreateRawHandlerParams", ({
-  enumerable: true,
-  get: function () {
-    return _raw.CreateHandlerParams;
-  }
-}));
-Object.defineProperty(exports, "CreateS3HandlerParams", ({
-  enumerable: true,
-  get: function () {
-    return _s.CreateHandlerParams;
-  }
-}));
-Object.defineProperty(exports, "CreateSQSHandlerParams", ({
-  enumerable: true,
-  get: function () {
-    return _sqs.CreateHandlerParams;
-  }
-}));
-Object.defineProperty(exports, "DynamoDBEventHandler", ({
-  enumerable: true,
-  get: function () {
-    return _dynamodb.DynamoDBEventHandler;
-  }
-}));
-Object.defineProperty(exports, "DynamoDBEventHandlerCallable", ({
-  enumerable: true,
-  get: function () {
-    return _dynamodb.DynamoDBEventHandlerCallable;
-  }
-}));
-Object.defineProperty(exports, "DynamoDBEventHandlerCallableParams", ({
-  enumerable: true,
-  get: function () {
-    return _dynamodb.DynamoDBEventHandlerCallableParams;
-  }
-}));
-Object.defineProperty(exports, "DynamoDBHandlerCallable", ({
-  enumerable: true,
-  get: function () {
-    return _dynamodb.HandlerCallable;
-  }
-}));
-Object.defineProperty(exports, "EventBridgeEventHandler", ({
-  enumerable: true,
-  get: function () {
-    return _eventBridge.EventBridgeEventHandler;
-  }
-}));
-Object.defineProperty(exports, "EventBridgeEventHandlerCallable", ({
-  enumerable: true,
-  get: function () {
-    return _eventBridge.EventBridgeEventHandlerCallable;
-  }
-}));
-Object.defineProperty(exports, "EventBridgeEventHandlerCallableParams", ({
-  enumerable: true,
-  get: function () {
-    return _eventBridge.EventBridgeEventHandlerCallableParams;
-  }
-}));
-Object.defineProperty(exports, "EventBridgeHandlerCallable", ({
-  enumerable: true,
-  get: function () {
-    return _eventBridge.HandlerCallable;
-  }
-}));
-Object.defineProperty(exports, "RawEventHandler", ({
-  enumerable: true,
-  get: function () {
-    return _raw.RawEventHandler;
-  }
-}));
-Object.defineProperty(exports, "RawEventHandlerCallable", ({
-  enumerable: true,
-  get: function () {
-    return _raw.RawEventHandlerCallable;
-  }
-}));
-Object.defineProperty(exports, "RawEventHandlerCallableParams", ({
-  enumerable: true,
-  get: function () {
-    return _raw.RawEventHandlerCallableParams;
-  }
-}));
-Object.defineProperty(exports, "RawHandlerCallable", ({
-  enumerable: true,
-  get: function () {
-    return _raw.HandlerCallable;
-  }
-}));
-Object.defineProperty(exports, "RoutePlugin", ({
-  enumerable: true,
-  get: function () {
-    return _gateway.RoutePlugin;
-  }
-}));
-Object.defineProperty(exports, "S3EventHandler", ({
-  enumerable: true,
-  get: function () {
-    return _s.S3EventHandler;
-  }
-}));
-Object.defineProperty(exports, "S3EventHandlerCallable", ({
-  enumerable: true,
-  get: function () {
-    return _s.S3EventHandlerCallable;
-  }
-}));
-Object.defineProperty(exports, "S3EventHandlerCallableParams", ({
-  enumerable: true,
-  get: function () {
-    return _s.S3EventHandlerCallableParams;
-  }
-}));
-Object.defineProperty(exports, "SQSEventHandler", ({
-  enumerable: true,
-  get: function () {
-    return _sqs.SQSEventHandler;
-  }
-}));
-Object.defineProperty(exports, "SQSEventHandlerCallable", ({
-  enumerable: true,
-  get: function () {
-    return _sqs.SQSEventHandlerCallable;
-  }
-}));
-Object.defineProperty(exports, "SQSEventHandlerCallableParams", ({
-  enumerable: true,
-  get: function () {
-    return _sqs.SQSEventHandlerCallableParams;
-  }
-}));
-Object.defineProperty(exports, "SQSHandlerCallable", ({
-  enumerable: true,
-  get: function () {
-    return _sqs.HandlerCallable;
-  }
-}));
-Object.defineProperty(exports, "createApiGatewayHandler", ({
-  enumerable: true,
-  get: function () {
-    return _gateway.createHandler;
-  }
-}));
-Object.defineProperty(exports, "createApiGatewayRoute", ({
-  enumerable: true,
-  get: function () {
-    return _gateway.createRoute;
-  }
-}));
-Object.defineProperty(exports, "createContextPlugin", ({
-  enumerable: true,
-  get: function () {
-    return _handler.createContextPlugin;
-  }
-}));
-Object.defineProperty(exports, "createDynamoDBEventHandler", ({
-  enumerable: true,
-  get: function () {
-    return _dynamodb.createEventHandler;
-  }
-}));
-Object.defineProperty(exports, "createDynamoDBHandler", ({
-  enumerable: true,
-  get: function () {
-    return _dynamodb.createHandler;
-  }
-}));
-Object.defineProperty(exports, "createEventBridgeEventHandler", ({
-  enumerable: true,
-  get: function () {
-    return _eventBridge.createEventHandler;
-  }
-}));
-Object.defineProperty(exports, "createEventBridgeHandler", ({
-  enumerable: true,
-  get: function () {
-    return _eventBridge.createHandler;
-  }
-}));
-Object.defineProperty(exports, "createRawEventHandler", ({
-  enumerable: true,
-  get: function () {
-    return _raw.createEventHandler;
-  }
-}));
-Object.defineProperty(exports, "createRawHandler", ({
-  enumerable: true,
-  get: function () {
-    return _raw.createHandler;
-  }
-}));
-Object.defineProperty(exports, "createS3EventHandler", ({
-  enumerable: true,
-  get: function () {
-    return _s.createEventHandler;
-  }
-}));
-Object.defineProperty(exports, "createS3Handler", ({
-  enumerable: true,
-  get: function () {
-    return _s.createHandler;
-  }
-}));
-Object.defineProperty(exports, "createSQSEventHandler", ({
-  enumerable: true,
-  get: function () {
-    return _sqs.createEventHandler;
-  }
-}));
-Object.defineProperty(exports, "createSQSHandler", ({
-  enumerable: true,
-  get: function () {
-    return _sqs.createHandler;
-  }
-}));
-var _gateway = __webpack_require__(/*! ./gateway */ "./packages/handler-aws/dist/gateway/index.js");
-var _s = __webpack_require__(/*! ./s3 */ "./packages/handler-aws/dist/s3/index.js");
-var _dynamodb = __webpack_require__(/*! ./dynamodb */ "./packages/handler-aws/dist/dynamodb/index.js");
-var _sqs = __webpack_require__(/*! ./sqs */ "./packages/handler-aws/dist/sqs/index.js");
-var _eventBridge = __webpack_require__(/*! ./eventBridge */ "./packages/handler-aws/dist/eventBridge/index.js");
-var _raw = __webpack_require__(/*! ./raw */ "./packages/handler-aws/dist/raw/index.js");
-var _handler = __webpack_require__(/*! @webiny/handler */ "./packages/handler/dist/index.js");
-
-/***/ }),
-
 /***/ "./packages/handler-aws/dist/plugins/handlerClient.js":
 /*!************************************************************!*\
   !*** ./packages/handler-aws/dist/plugins/handlerClient.js ***!
@@ -1264,7 +1006,8 @@ const createHandlerClientPlugin = () => {
         name,
         payload
       } = params;
-
+      console.log(name);
+      console.log("nnnnnnnnn");
       //const lambdaClient = new LambdaClient({
       //     region: process.env.AWS_REGION
       // });
@@ -1289,22 +1032,21 @@ const createHandlerClientPlugin = () => {
       return JSON.parse(Payload);
     },
     canUse: params => {
-      if (!(params !== null && params !== void 0 && params.name)) {
-        return true;
-      }
-      const {
-        name
-      } = params;
-      /**
-       * In case we are invoking currently active lambda, let's use this plugin as well.
-       * When invoking some other lambda, name starts with arn.
-       */
-      if (name === process.env.AWS_LAMBDA_FUNCTION_NAME) {
-        return true;
-      }
-      return name.match("arn:") !== null;
+      //if (!params?.name) {
+      return true;
+      // }
+      // const { name } = params;
+      // /**
+      //  * In case we are invoking currently active lambda, let's use this plugin as well.
+      //  * When invoking some other lambda, name starts with arn.
+      //  */
+      // if (name === process.env.AWS_LAMBDA_FUNCTION_NAME) {
+      //     return true;
+      // }
+      // return name.match("arn:") !== null;
     }
   });
+
   plugin.name = "handler-client";
   return plugin;
 };
@@ -1443,230 +1185,6 @@ class RawEventHandler extends _handler.EventPlugin {
 exports.RawEventHandler = RawEventHandler;
 const createEventHandler = cb => {
   return new RawEventHandler(cb);
-};
-exports.createEventHandler = createEventHandler;
-
-/***/ }),
-
-/***/ "./packages/handler-aws/dist/s3/index.js":
-/*!***********************************************!*\
-  !*** ./packages/handler-aws/dist/s3/index.js ***!
-  \***********************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = (__webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js")["default"]);
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-var _exportNames = {
-  createHandler: true
-};
-exports.createHandler = void 0;
-var _objectSpread2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectSpread2 */ "./node_modules/@babel/runtime/helpers/objectSpread2.js"));
-var _handler = __webpack_require__(/*! @webiny/handler */ "./packages/handler/dist/index.js");
-var _S3EventHandler = __webpack_require__(/*! ./plugins/S3EventHandler */ "./packages/handler-aws/dist/s3/plugins/S3EventHandler.js");
-Object.keys(_S3EventHandler).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
-  if (key in exports && exports[key] === _S3EventHandler[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _S3EventHandler[key];
-    }
-  });
-});
-var _plugins = __webpack_require__(/*! ../plugins */ "./packages/handler-aws/dist/plugins/index.js");
-var _execute = __webpack_require__(/*! ../execute */ "./packages/handler-aws/dist/execute.js");
-const Reply = __webpack_require__(/*! fastify/lib/reply */ "./node_modules/fastify/lib/reply.js");
-const url = "/webiny-s3-event";
-const createHandler = params => {
-  return (payload, context) => {
-    const app = (0, _handler.createHandler)((0, _objectSpread2.default)((0, _objectSpread2.default)({}, params), {}, {
-      options: (0, _objectSpread2.default)({
-        logger: params.debug === true
-      }, params.options || {})
-    }));
-    /**
-     * We always must add our default plugins to the app.
-     */
-    (0, _plugins.registerDefaultPlugins)(app.webiny);
-    /**
-     * There must be an event plugin for this handler to work.
-     */
-    const plugins = app.webiny.plugins.byType(_S3EventHandler.S3EventHandler.type);
-    const handler = plugins.shift();
-    if (!handler) {
-      throw new Error(`To run @webiny/handler-aws/s3, you must have S3EventHandler set.`);
-    }
-    app.post(url, async (request, reply) => {
-      const params = {
-        request,
-        reply,
-        context: app.webiny,
-        event: payload,
-        lambdaContext: context
-      };
-      const result = await handler.cb(params);
-      if (result instanceof Reply) {
-        return result;
-      }
-      app.__webiny_raw_result = result;
-      return reply.send({});
-    });
-    return (0, _execute.execute)({
-      app,
-      url,
-      payload
-    });
-  };
-};
-exports.createHandler = createHandler;
-
-/***/ }),
-
-/***/ "./packages/handler-aws/dist/s3/plugins/S3EventHandler.js":
-/*!****************************************************************!*\
-  !*** ./packages/handler-aws/dist/s3/plugins/S3EventHandler.js ***!
-  \****************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = (__webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js")["default"]);
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.createEventHandler = exports.S3EventHandler = void 0;
-var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js"));
-var _Plugin = __webpack_require__(/*! @webiny/plugins/Plugin */ "./packages/plugins/dist/Plugin.js");
-class S3EventHandler extends _Plugin.Plugin {
-  constructor(cb) {
-    super();
-    (0, _defineProperty2.default)(this, "cb", void 0);
-    this.cb = cb;
-  }
-}
-exports.S3EventHandler = S3EventHandler;
-(0, _defineProperty2.default)(S3EventHandler, "type", "handler.fastify.aws.s3.eventHandler");
-const createEventHandler = cb => {
-  return new S3EventHandler(cb);
-};
-exports.createEventHandler = createEventHandler;
-
-/***/ }),
-
-/***/ "./packages/handler-aws/dist/sqs/index.js":
-/*!************************************************!*\
-  !*** ./packages/handler-aws/dist/sqs/index.js ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = (__webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js")["default"]);
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-var _exportNames = {
-  createHandler: true
-};
-exports.createHandler = void 0;
-var _objectSpread2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/objectSpread2 */ "./node_modules/@babel/runtime/helpers/objectSpread2.js"));
-var _handler = __webpack_require__(/*! @webiny/handler */ "./packages/handler/dist/index.js");
-var _SQSEventHandler = __webpack_require__(/*! ./plugins/SQSEventHandler */ "./packages/handler-aws/dist/sqs/plugins/SQSEventHandler.js");
-Object.keys(_SQSEventHandler).forEach(function (key) {
-  if (key === "default" || key === "__esModule") return;
-  if (Object.prototype.hasOwnProperty.call(_exportNames, key)) return;
-  if (key in exports && exports[key] === _SQSEventHandler[key]) return;
-  Object.defineProperty(exports, key, {
-    enumerable: true,
-    get: function () {
-      return _SQSEventHandler[key];
-    }
-  });
-});
-var _plugins = __webpack_require__(/*! ../plugins */ "./packages/handler-aws/dist/plugins/index.js");
-var _execute = __webpack_require__(/*! ../execute */ "./packages/handler-aws/dist/execute.js");
-const Reply = __webpack_require__(/*! fastify/lib/reply */ "./node_modules/fastify/lib/reply.js");
-const url = "/webiny-sqs-event";
-const createHandler = params => {
-  return (payload, context) => {
-    const app = (0, _handler.createHandler)((0, _objectSpread2.default)((0, _objectSpread2.default)({}, params), {}, {
-      options: (0, _objectSpread2.default)({
-        logger: params.debug === true
-      }, params.options || {})
-    }));
-    /**
-     * We always must add our default plugins to the app.
-     */
-    (0, _plugins.registerDefaultPlugins)(app.webiny);
-    /**
-     * There must be an event plugin for this handler to work.
-     */
-    const plugins = app.webiny.plugins.byType(_SQSEventHandler.SQSEventHandler.type);
-    const handler = plugins.shift();
-    if (!handler) {
-      throw new Error(`To run @webiny/handler-aws/sqs, you must have SQSEventHandler set.`);
-    }
-    app.post(url, async (request, reply) => {
-      const params = {
-        request,
-        reply,
-        context: app.webiny,
-        event: payload,
-        lambdaContext: context
-      };
-      const result = await handler.cb(params);
-      if (result instanceof Reply) {
-        return result;
-      }
-      app.__webiny_raw_result = result;
-      return reply.send({});
-    });
-    return (0, _execute.execute)({
-      app,
-      url,
-      payload
-    });
-  };
-};
-exports.createHandler = createHandler;
-
-/***/ }),
-
-/***/ "./packages/handler-aws/dist/sqs/plugins/SQSEventHandler.js":
-/*!******************************************************************!*\
-  !*** ./packages/handler-aws/dist/sqs/plugins/SQSEventHandler.js ***!
-  \******************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-"use strict";
-
-
-var _interopRequireDefault = (__webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "./node_modules/@babel/runtime/helpers/interopRequireDefault.js")["default"]);
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.createEventHandler = exports.SQSEventHandler = void 0;
-var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js"));
-var _Plugin = __webpack_require__(/*! @webiny/plugins/Plugin */ "./packages/plugins/dist/Plugin.js");
-class SQSEventHandler extends _Plugin.Plugin {
-  constructor(cb) {
-    super();
-    (0, _defineProperty2.default)(this, "cb", void 0);
-    this.cb = cb;
-  }
-}
-exports.SQSEventHandler = SQSEventHandler;
-(0, _defineProperty2.default)(SQSEventHandler, "type", "handler.fastify.aws.sqs.eventHandler");
-const createEventHandler = cb => {
-  return new SQSEventHandler(cb);
 };
 exports.createEventHandler = createEventHandler;
 
@@ -12045,167 +11563,6 @@ function StandaloneValidator (options = { readMode: true }) {
 }
 
 module.exports = StandaloneValidator
-
-
-/***/ }),
-
-/***/ "./node_modules/@fastify/aws-lambda/index.js":
-/*!***************************************************!*\
-  !*** ./node_modules/@fastify/aws-lambda/index.js ***!
-  \***************************************************/
-/***/ ((module) => {
-
-const isCompressedDefault = (res) => {
-  const contentEncoding = res.headers['content-encoding'] || res.headers['Content-Encoding']
-  return contentEncoding && contentEncoding !== 'identity'
-}
-
-const customBinaryCheck = (options, res) => {
-  const enforceBase64 = typeof options.enforceBase64 === 'function' ? options.enforceBase64 : isCompressedDefault
-  return enforceBase64(res) === true
-}
-
-module.exports = (app, options) => {
-  options = options || {}
-  options.binaryMimeTypes = options.binaryMimeTypes || []
-  options.serializeLambdaArguments = options.serializeLambdaArguments !== undefined ? options.serializeLambdaArguments : false
-  options.decorateRequest = options.decorateRequest !== undefined ? options.decorateRequest : true
-  let currentAwsArguments = {}
-  if (options.decorateRequest) {
-    options.decorationPropertyName = options.decorationPropertyName || 'awsLambda'
-    app.decorateRequest(options.decorationPropertyName, {
-      getter: () => ({
-        get event () {
-          return currentAwsArguments.event
-        },
-        get context () {
-          return currentAwsArguments.context
-        }
-      })
-    })
-  }
-  return (event, context, callback) => {
-    currentAwsArguments.event = event
-    currentAwsArguments.context = context
-    if (options.callbackWaitsForEmptyEventLoop !== undefined) {
-      context.callbackWaitsForEmptyEventLoop = options.callbackWaitsForEmptyEventLoop
-    }
-    event.body = event.body || ''
-
-    const method = event.httpMethod || (event.requestContext && event.requestContext.http ? event.requestContext.http.method : undefined)
-    let url = event.path || event.rawPath || '/' // seen rawPath for HTTP-API
-    // NOTE: if used directly via API Gateway domain and /stage
-    if (event.requestContext && event.requestContext.stage && event.requestContext.resourcePath &&
-        (url).indexOf(`/${event.requestContext.stage}/`) === 0 &&
-        event.requestContext.resourcePath.indexOf(`/${event.requestContext.stage}/`) !== 0) {
-      url = url.substring(event.requestContext.stage.length + 1)
-    }
-    const query = {}
-    if (event.requestContext && event.requestContext.elb) {
-      if (event.multiValueQueryStringParameters) {
-        Object.keys(event.multiValueQueryStringParameters).forEach((q) => {
-          query[decodeURIComponent(q)] = event.multiValueQueryStringParameters[q].map((val) => decodeURIComponent(val))
-        })
-      } else if (event.queryStringParameters) {
-        Object.keys(event.queryStringParameters).forEach((q) => {
-          query[decodeURIComponent(q)] = decodeURIComponent(event.queryStringParameters[q])
-          if (event.version === '2.0' && typeof query[decodeURIComponent(q)] === 'string' && query[decodeURIComponent(q)].indexOf(',') > 0) {
-            query[decodeURIComponent(q)] = query[decodeURIComponent(q)].split(',')
-          }
-        })
-      }
-    } else {
-      if (event.queryStringParameters && event.version === '2.0') {
-        Object.keys(event.queryStringParameters).forEach((k) => {
-          if (typeof event.queryStringParameters[k] === 'string' && event.queryStringParameters[k].indexOf(',') > 0) {
-            event.queryStringParameters[k] = event.queryStringParameters[k].split(',')
-          }
-        })
-      }
-      Object.assign(query, event.multiValueQueryStringParameters || event.queryStringParameters)
-    }
-    const headers = Object.assign({}, event.headers)
-    if (event.multiValueHeaders) {
-      Object.keys(event.multiValueHeaders).forEach((h) => {
-        if (event.multiValueHeaders[h].length > 1) {
-          headers[h] = event.multiValueHeaders[h]
-        }
-      })
-    }
-    const payload = Buffer.from(event.body, event.isBase64Encoded ? 'base64' : 'utf8')
-    // NOTE: API Gateway is not setting Content-Length header on requests even when they have a body
-    if (event.body && !headers['Content-Length'] && !headers['content-length']) headers['content-length'] = Buffer.byteLength(payload)
-
-    if (options.serializeLambdaArguments) {
-      event.body = undefined // remove body from event only when setting request headers
-      headers['x-apigateway-event'] = encodeURIComponent(JSON.stringify(event))
-      if (context) headers['x-apigateway-context'] = encodeURIComponent(JSON.stringify(context))
-    }
-
-    if (event.requestContext && event.requestContext.requestId) {
-      headers['x-request-id'] = headers['x-request-id'] || event.requestContext.requestId
-    }
-
-    // API gateway v2 cookies: https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
-    if (event.cookies && event.cookies.length) {
-      headers['cookie'] = event.cookies.join(';')
-    }
-
-    const prom = new Promise((resolve) => {
-      app.inject({ method, url, query, payload, headers }, (err, res) => {
-        currentAwsArguments = {}
-        if (err) {
-          console.error(err)
-          return resolve({
-            statusCode: 500,
-            body: '',
-            headers: {}
-          })
-        }
-        // chunked transfer not currently supported by API Gateway
-        if (headers['transfer-encoding'] === 'chunked') delete headers['transfer-encoding']
-        if (headers['Transfer-Encoding'] === 'chunked') delete headers['Transfer-Encoding']
-
-        let multiValueHeaders
-        let cookies
-        Object.keys(res.headers).forEach((h) => {
-          const isSetCookie = h.toLowerCase() === 'set-cookie'
-          const isArraycookie = Array.isArray(res.headers[h])
-          if (isArraycookie) {
-            if (isSetCookie) {
-              multiValueHeaders = multiValueHeaders || {}
-              multiValueHeaders[h] = res.headers[h]
-            } else res.headers[h] = res.headers[h].join(',')
-          } else if (typeof res.headers[h] !== 'undefined' && typeof res.headers[h] !== 'string') {
-            // NOTE: API Gateway (i.e. HttpApi) validates all headers to be a string
-            res.headers[h] = res.headers[h].toString()
-          }
-          if (isSetCookie) {
-            cookies = isArraycookie ? res.headers[h] : [res.headers[h]]
-            if (event.version === '2.0' || isArraycookie) delete res.headers[h]
-          }
-        })
-
-        const contentType = (res.headers['content-type'] || res.headers['Content-Type'] || '').split(';')[0]
-        const isBase64Encoded = options.binaryMimeTypes.indexOf(contentType) > -1 || customBinaryCheck(options, res)
-
-        const ret = {
-          statusCode: res.statusCode,
-          body: isBase64Encoded ? res.rawPayload.toString('base64') : res.payload,
-          headers: res.headers,
-          isBase64Encoded
-        }
-
-        if (cookies && event.version === '2.0') ret.cookies = cookies
-        if (multiValueHeaders && (!event.version || event.version === '1.0')) ret.multiValueHeaders = multiValueHeaders
-        resolve(ret)
-      })
-    })
-    if (!callback) return prom
-    prom.then((ret) => callback(null, ret)).catch(callback)
-    return prom
-  }
-}
 
 
 /***/ }),
@@ -36561,320 +35918,6 @@ module.exports = Array.isArray || function (arr) {
 
 /***/ }),
 
-/***/ "./node_modules/js-base64/base64.js":
-/*!******************************************!*\
-  !*** ./node_modules/js-base64/base64.js ***!
-  \******************************************/
-/***/ (function(module) {
-
-//
-// THIS FILE IS AUTOMATICALLY GENERATED! DO NOT EDIT BY HAND!
-//
-;
-(function (global, factory) {
-     true
-        ? module.exports = factory()
-        : 0;
-}((typeof self !== 'undefined' ? self
-    : typeof window !== 'undefined' ? window
-        : typeof global !== 'undefined' ? global
-            : this), function () {
-    'use strict';
-    /**
-     *  base64.ts
-     *
-     *  Licensed under the BSD 3-Clause License.
-     *    http://opensource.org/licenses/BSD-3-Clause
-     *
-     *  References:
-     *    http://en.wikipedia.org/wiki/Base64
-     *
-     * @author Dan Kogai (https://github.com/dankogai)
-     */
-    var version = '3.7.4';
-    /**
-     * @deprecated use lowercase `version`.
-     */
-    var VERSION = version;
-    var _hasatob = typeof atob === 'function';
-    var _hasbtoa = typeof btoa === 'function';
-    var _hasBuffer = typeof Buffer === 'function';
-    var _TD = typeof TextDecoder === 'function' ? new TextDecoder() : undefined;
-    var _TE = typeof TextEncoder === 'function' ? new TextEncoder() : undefined;
-    var b64ch = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
-    var b64chs = Array.prototype.slice.call(b64ch);
-    var b64tab = (function (a) {
-        var tab = {};
-        a.forEach(function (c, i) { return tab[c] = i; });
-        return tab;
-    })(b64chs);
-    var b64re = /^(?:[A-Za-z\d+\/]{4})*?(?:[A-Za-z\d+\/]{2}(?:==)?|[A-Za-z\d+\/]{3}=?)?$/;
-    var _fromCC = String.fromCharCode.bind(String);
-    var _U8Afrom = typeof Uint8Array.from === 'function'
-        ? Uint8Array.from.bind(Uint8Array)
-        : function (it, fn) {
-            if (fn === void 0) { fn = function (x) { return x; }; }
-            return new Uint8Array(Array.prototype.slice.call(it, 0).map(fn));
-        };
-    var _mkUriSafe = function (src) { return src
-        .replace(/=/g, '').replace(/[+\/]/g, function (m0) { return m0 == '+' ? '-' : '_'; }); };
-    var _tidyB64 = function (s) { return s.replace(/[^A-Za-z0-9\+\/]/g, ''); };
-    /**
-     * polyfill version of `btoa`
-     */
-    var btoaPolyfill = function (bin) {
-        // console.log('polyfilled');
-        var u32, c0, c1, c2, asc = '';
-        var pad = bin.length % 3;
-        for (var i = 0; i < bin.length;) {
-            if ((c0 = bin.charCodeAt(i++)) > 255 ||
-                (c1 = bin.charCodeAt(i++)) > 255 ||
-                (c2 = bin.charCodeAt(i++)) > 255)
-                throw new TypeError('invalid character found');
-            u32 = (c0 << 16) | (c1 << 8) | c2;
-            asc += b64chs[u32 >> 18 & 63]
-                + b64chs[u32 >> 12 & 63]
-                + b64chs[u32 >> 6 & 63]
-                + b64chs[u32 & 63];
-        }
-        return pad ? asc.slice(0, pad - 3) + "===".substring(pad) : asc;
-    };
-    /**
-     * does what `window.btoa` of web browsers do.
-     * @param {String} bin binary string
-     * @returns {string} Base64-encoded string
-     */
-    var _btoa = _hasbtoa ? function (bin) { return btoa(bin); }
-        : _hasBuffer ? function (bin) { return Buffer.from(bin, 'binary').toString('base64'); }
-            : btoaPolyfill;
-    var _fromUint8Array = _hasBuffer
-        ? function (u8a) { return Buffer.from(u8a).toString('base64'); }
-        : function (u8a) {
-            // cf. https://stackoverflow.com/questions/12710001/how-to-convert-uint8-array-to-base64-encoded-string/12713326#12713326
-            var maxargs = 0x1000;
-            var strs = [];
-            for (var i = 0, l = u8a.length; i < l; i += maxargs) {
-                strs.push(_fromCC.apply(null, u8a.subarray(i, i + maxargs)));
-            }
-            return _btoa(strs.join(''));
-        };
-    /**
-     * converts a Uint8Array to a Base64 string.
-     * @param {boolean} [urlsafe] URL-and-filename-safe a la RFC4648 §5
-     * @returns {string} Base64 string
-     */
-    var fromUint8Array = function (u8a, urlsafe) {
-        if (urlsafe === void 0) { urlsafe = false; }
-        return urlsafe ? _mkUriSafe(_fromUint8Array(u8a)) : _fromUint8Array(u8a);
-    };
-    // This trick is found broken https://github.com/dankogai/js-base64/issues/130
-    // const utob = (src: string) => unescape(encodeURIComponent(src));
-    // reverting good old fationed regexp
-    var cb_utob = function (c) {
-        if (c.length < 2) {
-            var cc = c.charCodeAt(0);
-            return cc < 0x80 ? c
-                : cc < 0x800 ? (_fromCC(0xc0 | (cc >>> 6))
-                    + _fromCC(0x80 | (cc & 0x3f)))
-                    : (_fromCC(0xe0 | ((cc >>> 12) & 0x0f))
-                        + _fromCC(0x80 | ((cc >>> 6) & 0x3f))
-                        + _fromCC(0x80 | (cc & 0x3f)));
-        }
-        else {
-            var cc = 0x10000
-                + (c.charCodeAt(0) - 0xD800) * 0x400
-                + (c.charCodeAt(1) - 0xDC00);
-            return (_fromCC(0xf0 | ((cc >>> 18) & 0x07))
-                + _fromCC(0x80 | ((cc >>> 12) & 0x3f))
-                + _fromCC(0x80 | ((cc >>> 6) & 0x3f))
-                + _fromCC(0x80 | (cc & 0x3f)));
-        }
-    };
-    var re_utob = /[\uD800-\uDBFF][\uDC00-\uDFFFF]|[^\x00-\x7F]/g;
-    /**
-     * @deprecated should have been internal use only.
-     * @param {string} src UTF-8 string
-     * @returns {string} UTF-16 string
-     */
-    var utob = function (u) { return u.replace(re_utob, cb_utob); };
-    //
-    var _encode = _hasBuffer
-        ? function (s) { return Buffer.from(s, 'utf8').toString('base64'); }
-        : _TE
-            ? function (s) { return _fromUint8Array(_TE.encode(s)); }
-            : function (s) { return _btoa(utob(s)); };
-    /**
-     * converts a UTF-8-encoded string to a Base64 string.
-     * @param {boolean} [urlsafe] if `true` make the result URL-safe
-     * @returns {string} Base64 string
-     */
-    var encode = function (src, urlsafe) {
-        if (urlsafe === void 0) { urlsafe = false; }
-        return urlsafe
-            ? _mkUriSafe(_encode(src))
-            : _encode(src);
-    };
-    /**
-     * converts a UTF-8-encoded string to URL-safe Base64 RFC4648 §5.
-     * @returns {string} Base64 string
-     */
-    var encodeURI = function (src) { return encode(src, true); };
-    // This trick is found broken https://github.com/dankogai/js-base64/issues/130
-    // const btou = (src: string) => decodeURIComponent(escape(src));
-    // reverting good old fationed regexp
-    var re_btou = /[\xC0-\xDF][\x80-\xBF]|[\xE0-\xEF][\x80-\xBF]{2}|[\xF0-\xF7][\x80-\xBF]{3}/g;
-    var cb_btou = function (cccc) {
-        switch (cccc.length) {
-            case 4:
-                var cp = ((0x07 & cccc.charCodeAt(0)) << 18)
-                    | ((0x3f & cccc.charCodeAt(1)) << 12)
-                    | ((0x3f & cccc.charCodeAt(2)) << 6)
-                    | (0x3f & cccc.charCodeAt(3)), offset = cp - 0x10000;
-                return (_fromCC((offset >>> 10) + 0xD800)
-                    + _fromCC((offset & 0x3FF) + 0xDC00));
-            case 3:
-                return _fromCC(((0x0f & cccc.charCodeAt(0)) << 12)
-                    | ((0x3f & cccc.charCodeAt(1)) << 6)
-                    | (0x3f & cccc.charCodeAt(2)));
-            default:
-                return _fromCC(((0x1f & cccc.charCodeAt(0)) << 6)
-                    | (0x3f & cccc.charCodeAt(1)));
-        }
-    };
-    /**
-     * @deprecated should have been internal use only.
-     * @param {string} src UTF-16 string
-     * @returns {string} UTF-8 string
-     */
-    var btou = function (b) { return b.replace(re_btou, cb_btou); };
-    /**
-     * polyfill version of `atob`
-     */
-    var atobPolyfill = function (asc) {
-        // console.log('polyfilled');
-        asc = asc.replace(/\s+/g, '');
-        if (!b64re.test(asc))
-            throw new TypeError('malformed base64.');
-        asc += '=='.slice(2 - (asc.length & 3));
-        var u24, bin = '', r1, r2;
-        for (var i = 0; i < asc.length;) {
-            u24 = b64tab[asc.charAt(i++)] << 18
-                | b64tab[asc.charAt(i++)] << 12
-                | (r1 = b64tab[asc.charAt(i++)]) << 6
-                | (r2 = b64tab[asc.charAt(i++)]);
-            bin += r1 === 64 ? _fromCC(u24 >> 16 & 255)
-                : r2 === 64 ? _fromCC(u24 >> 16 & 255, u24 >> 8 & 255)
-                    : _fromCC(u24 >> 16 & 255, u24 >> 8 & 255, u24 & 255);
-        }
-        return bin;
-    };
-    /**
-     * does what `window.atob` of web browsers do.
-     * @param {String} asc Base64-encoded string
-     * @returns {string} binary string
-     */
-    var _atob = _hasatob ? function (asc) { return atob(_tidyB64(asc)); }
-        : _hasBuffer ? function (asc) { return Buffer.from(asc, 'base64').toString('binary'); }
-            : atobPolyfill;
-    //
-    var _toUint8Array = _hasBuffer
-        ? function (a) { return _U8Afrom(Buffer.from(a, 'base64')); }
-        : function (a) { return _U8Afrom(_atob(a), function (c) { return c.charCodeAt(0); }); };
-    /**
-     * converts a Base64 string to a Uint8Array.
-     */
-    var toUint8Array = function (a) { return _toUint8Array(_unURI(a)); };
-    //
-    var _decode = _hasBuffer
-        ? function (a) { return Buffer.from(a, 'base64').toString('utf8'); }
-        : _TD
-            ? function (a) { return _TD.decode(_toUint8Array(a)); }
-            : function (a) { return btou(_atob(a)); };
-    var _unURI = function (a) { return _tidyB64(a.replace(/[-_]/g, function (m0) { return m0 == '-' ? '+' : '/'; })); };
-    /**
-     * converts a Base64 string to a UTF-8 string.
-     * @param {String} src Base64 string.  Both normal and URL-safe are supported
-     * @returns {string} UTF-8 string
-     */
-    var decode = function (src) { return _decode(_unURI(src)); };
-    /**
-     * check if a value is a valid Base64 string
-     * @param {String} src a value to check
-      */
-    var isValid = function (src) {
-        if (typeof src !== 'string')
-            return false;
-        var s = src.replace(/\s+/g, '').replace(/={0,2}$/, '');
-        return !/[^\s0-9a-zA-Z\+/]/.test(s) || !/[^\s0-9a-zA-Z\-_]/.test(s);
-    };
-    //
-    var _noEnum = function (v) {
-        return {
-            value: v, enumerable: false, writable: true, configurable: true
-        };
-    };
-    /**
-     * extend String.prototype with relevant methods
-     */
-    var extendString = function () {
-        var _add = function (name, body) { return Object.defineProperty(String.prototype, name, _noEnum(body)); };
-        _add('fromBase64', function () { return decode(this); });
-        _add('toBase64', function (urlsafe) { return encode(this, urlsafe); });
-        _add('toBase64URI', function () { return encode(this, true); });
-        _add('toBase64URL', function () { return encode(this, true); });
-        _add('toUint8Array', function () { return toUint8Array(this); });
-    };
-    /**
-     * extend Uint8Array.prototype with relevant methods
-     */
-    var extendUint8Array = function () {
-        var _add = function (name, body) { return Object.defineProperty(Uint8Array.prototype, name, _noEnum(body)); };
-        _add('toBase64', function (urlsafe) { return fromUint8Array(this, urlsafe); });
-        _add('toBase64URI', function () { return fromUint8Array(this, true); });
-        _add('toBase64URL', function () { return fromUint8Array(this, true); });
-    };
-    /**
-     * extend Builtin prototypes with relevant methods
-     */
-    var extendBuiltins = function () {
-        extendString();
-        extendUint8Array();
-    };
-    var gBase64 = {
-        version: version,
-        VERSION: VERSION,
-        atob: _atob,
-        atobPolyfill: atobPolyfill,
-        btoa: _btoa,
-        btoaPolyfill: btoaPolyfill,
-        fromBase64: decode,
-        toBase64: encode,
-        encode: encode,
-        encodeURI: encodeURI,
-        encodeURL: encodeURI,
-        utob: utob,
-        btou: btou,
-        decode: decode,
-        isValid: isValid,
-        fromUint8Array: fromUint8Array,
-        toUint8Array: toUint8Array,
-        extendString: extendString,
-        extendUint8Array: extendUint8Array,
-        extendBuiltins: extendBuiltins
-    };
-    //
-    // export Base64 to the namespace
-    //
-    // ES5 is yet to have Object.assign() that may make transpilers unhappy.
-    // gBase64.Base64 = Object.assign({}, gBase64);
-    gBase64.Base64 = {};
-    Object.keys(gBase64).forEach(function (k) { return gBase64.Base64[k] = gBase64[k]; });
-    return gBase64;
-}));
-
-
-/***/ }),
-
 /***/ "./node_modules/light-my-request/index.js":
 /*!************************************************!*\
   !*** ./node_modules/light-my-request/index.js ***!
@@ -39483,6 +38526,470 @@ module.exports = '0123456789';
 /***/ ((module) => {
 
 module.exports = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+/***/ }),
+
+/***/ "./node_modules/object-hash/index.js":
+/*!*******************************************!*\
+  !*** ./node_modules/object-hash/index.js ***!
+  \*******************************************/
+/***/ ((module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var crypto = __webpack_require__(/*! crypto */ "crypto");
+
+/**
+ * Exported function
+ *
+ * Options:
+ *
+ *  - `algorithm` hash algo to be used by this instance: *'sha1', 'md5'
+ *  - `excludeValues` {true|*false} hash object keys, values ignored
+ *  - `encoding` hash encoding, supports 'buffer', '*hex', 'binary', 'base64'
+ *  - `ignoreUnknown` {true|*false} ignore unknown object types
+ *  - `replacer` optional function that replaces values before hashing
+ *  - `respectFunctionProperties` {*true|false} consider function properties when hashing
+ *  - `respectFunctionNames` {*true|false} consider 'name' property of functions for hashing
+ *  - `respectType` {*true|false} Respect special properties (prototype, constructor)
+ *    when hashing to distinguish between types
+ *  - `unorderedArrays` {true|*false} Sort all arrays before hashing
+ *  - `unorderedSets` {*true|false} Sort `Set` and `Map` instances before hashing
+ *  * = default
+ *
+ * @param {object} object value to hash
+ * @param {object} options hashing options
+ * @return {string} hash value
+ * @api public
+ */
+exports = module.exports = objectHash;
+
+function objectHash(object, options){
+  options = applyDefaults(object, options);
+
+  return hash(object, options);
+}
+
+/**
+ * Exported sugar methods
+ *
+ * @param {object} object value to hash
+ * @return {string} hash value
+ * @api public
+ */
+exports.sha1 = function(object){
+  return objectHash(object);
+};
+exports.keys = function(object){
+  return objectHash(object, {excludeValues: true, algorithm: 'sha1', encoding: 'hex'});
+};
+exports.MD5 = function(object){
+  return objectHash(object, {algorithm: 'md5', encoding: 'hex'});
+};
+exports.keysMD5 = function(object){
+  return objectHash(object, {algorithm: 'md5', encoding: 'hex', excludeValues: true});
+};
+
+// Internals
+var hashes = crypto.getHashes ? crypto.getHashes().slice() : ['sha1', 'md5'];
+hashes.push('passthrough');
+var encodings = ['buffer', 'hex', 'binary', 'base64'];
+
+function applyDefaults(object, sourceOptions){
+  sourceOptions = sourceOptions || {};
+
+  // create a copy rather than mutating
+  var options = {};
+  options.algorithm = sourceOptions.algorithm || 'sha1';
+  options.encoding = sourceOptions.encoding || 'hex';
+  options.excludeValues = sourceOptions.excludeValues ? true : false;
+  options.algorithm = options.algorithm.toLowerCase();
+  options.encoding = options.encoding.toLowerCase();
+  options.ignoreUnknown = sourceOptions.ignoreUnknown !== true ? false : true; // default to false
+  options.respectType = sourceOptions.respectType === false ? false : true; // default to true
+  options.respectFunctionNames = sourceOptions.respectFunctionNames === false ? false : true;
+  options.respectFunctionProperties = sourceOptions.respectFunctionProperties === false ? false : true;
+  options.unorderedArrays = sourceOptions.unorderedArrays !== true ? false : true; // default to false
+  options.unorderedSets = sourceOptions.unorderedSets === false ? false : true; // default to false
+  options.unorderedObjects = sourceOptions.unorderedObjects === false ? false : true; // default to true
+  options.replacer = sourceOptions.replacer || undefined;
+  options.excludeKeys = sourceOptions.excludeKeys || undefined;
+
+  if(typeof object === 'undefined') {
+    throw new Error('Object argument required.');
+  }
+
+  // if there is a case-insensitive match in the hashes list, accept it
+  // (i.e. SHA256 for sha256)
+  for (var i = 0; i < hashes.length; ++i) {
+    if (hashes[i].toLowerCase() === options.algorithm.toLowerCase()) {
+      options.algorithm = hashes[i];
+    }
+  }
+
+  if(hashes.indexOf(options.algorithm) === -1){
+    throw new Error('Algorithm "' + options.algorithm + '"  not supported. ' +
+      'supported values: ' + hashes.join(', '));
+  }
+
+  if(encodings.indexOf(options.encoding) === -1 &&
+     options.algorithm !== 'passthrough'){
+    throw new Error('Encoding "' + options.encoding + '"  not supported. ' +
+      'supported values: ' + encodings.join(', '));
+  }
+
+  return options;
+}
+
+/** Check if the given function is a native function */
+function isNativeFunction(f) {
+  if ((typeof f) !== 'function') {
+    return false;
+  }
+  var exp = /^function\s+\w*\s*\(\s*\)\s*{\s+\[native code\]\s+}$/i;
+  return exp.exec(Function.prototype.toString.call(f)) != null;
+}
+
+function hash(object, options) {
+  var hashingStream;
+
+  if (options.algorithm !== 'passthrough') {
+    hashingStream = crypto.createHash(options.algorithm);
+  } else {
+    hashingStream = new PassThrough();
+  }
+
+  if (typeof hashingStream.write === 'undefined') {
+    hashingStream.write = hashingStream.update;
+    hashingStream.end   = hashingStream.update;
+  }
+
+  var hasher = typeHasher(options, hashingStream);
+  hasher.dispatch(object);
+  if (!hashingStream.update) {
+    hashingStream.end('');
+  }
+
+  if (hashingStream.digest) {
+    return hashingStream.digest(options.encoding === 'buffer' ? undefined : options.encoding);
+  }
+
+  var buf = hashingStream.read();
+  if (options.encoding === 'buffer') {
+    return buf;
+  }
+
+  return buf.toString(options.encoding);
+}
+
+/**
+ * Expose streaming API
+ *
+ * @param {object} object  Value to serialize
+ * @param {object} options  Options, as for hash()
+ * @param {object} stream  A stream to write the serializiation to
+ * @api public
+ */
+exports.writeToStream = function(object, options, stream) {
+  if (typeof stream === 'undefined') {
+    stream = options;
+    options = {};
+  }
+
+  options = applyDefaults(object, options);
+
+  return typeHasher(options, stream).dispatch(object);
+};
+
+function typeHasher(options, writeTo, context){
+  context = context || [];
+  var write = function(str) {
+    if (writeTo.update) {
+      return writeTo.update(str, 'utf8');
+    } else {
+      return writeTo.write(str, 'utf8');
+    }
+  };
+
+  return {
+    dispatch: function(value){
+      if (options.replacer) {
+        value = options.replacer(value);
+      }
+
+      var type = typeof value;
+      if (value === null) {
+        type = 'null';
+      }
+
+      //console.log("[DEBUG] Dispatch: ", value, "->", type, " -> ", "_" + type);
+
+      return this['_' + type](value);
+    },
+    _object: function(object) {
+      var pattern = (/\[object (.*)\]/i);
+      var objString = Object.prototype.toString.call(object);
+      var objType = pattern.exec(objString);
+      if (!objType) { // object type did not match [object ...]
+        objType = 'unknown:[' + objString + ']';
+      } else {
+        objType = objType[1]; // take only the class name
+      }
+
+      objType = objType.toLowerCase();
+
+      var objectNumber = null;
+
+      if ((objectNumber = context.indexOf(object)) >= 0) {
+        return this.dispatch('[CIRCULAR:' + objectNumber + ']');
+      } else {
+        context.push(object);
+      }
+
+      if (typeof Buffer !== 'undefined' && Buffer.isBuffer && Buffer.isBuffer(object)) {
+        write('buffer:');
+        return write(object);
+      }
+
+      if(objType !== 'object' && objType !== 'function' && objType !== 'asyncfunction') {
+        if(this['_' + objType]) {
+          this['_' + objType](object);
+        } else if (options.ignoreUnknown) {
+          return write('[' + objType + ']');
+        } else {
+          throw new Error('Unknown object type "' + objType + '"');
+        }
+      }else{
+        var keys = Object.keys(object);
+        if (options.unorderedObjects) {
+          keys = keys.sort();
+        }
+        // Make sure to incorporate special properties, so
+        // Types with different prototypes will produce
+        // a different hash and objects derived from
+        // different functions (`new Foo`, `new Bar`) will
+        // produce different hashes.
+        // We never do this for native functions since some
+        // seem to break because of that.
+        if (options.respectType !== false && !isNativeFunction(object)) {
+          keys.splice(0, 0, 'prototype', '__proto__', 'constructor');
+        }
+
+        if (options.excludeKeys) {
+          keys = keys.filter(function(key) { return !options.excludeKeys(key); });
+        }
+
+        write('object:' + keys.length + ':');
+        var self = this;
+        return keys.forEach(function(key){
+          self.dispatch(key);
+          write(':');
+          if(!options.excludeValues) {
+            self.dispatch(object[key]);
+          }
+          write(',');
+        });
+      }
+    },
+    _array: function(arr, unordered){
+      unordered = typeof unordered !== 'undefined' ? unordered :
+        options.unorderedArrays !== false; // default to options.unorderedArrays
+
+      var self = this;
+      write('array:' + arr.length + ':');
+      if (!unordered || arr.length <= 1) {
+        return arr.forEach(function(entry) {
+          return self.dispatch(entry);
+        });
+      }
+
+      // the unordered case is a little more complicated:
+      // since there is no canonical ordering on objects,
+      // i.e. {a:1} < {a:2} and {a:1} > {a:2} are both false,
+      // we first serialize each entry using a PassThrough stream
+      // before sorting.
+      // also: we can’t use the same context array for all entries
+      // since the order of hashing should *not* matter. instead,
+      // we keep track of the additions to a copy of the context array
+      // and add all of them to the global context array when we’re done
+      var contextAdditions = [];
+      var entries = arr.map(function(entry) {
+        var strm = new PassThrough();
+        var localContext = context.slice(); // make copy
+        var hasher = typeHasher(options, strm, localContext);
+        hasher.dispatch(entry);
+        // take only what was added to localContext and append it to contextAdditions
+        contextAdditions = contextAdditions.concat(localContext.slice(context.length));
+        return strm.read().toString();
+      });
+      context = context.concat(contextAdditions);
+      entries.sort();
+      return this._array(entries, false);
+    },
+    _date: function(date){
+      return write('date:' + date.toJSON());
+    },
+    _symbol: function(sym){
+      return write('symbol:' + sym.toString());
+    },
+    _error: function(err){
+      return write('error:' + err.toString());
+    },
+    _boolean: function(bool){
+      return write('bool:' + bool.toString());
+    },
+    _string: function(string){
+      write('string:' + string.length + ':');
+      write(string.toString());
+    },
+    _function: function(fn){
+      write('fn:');
+      if (isNativeFunction(fn)) {
+        this.dispatch('[native]');
+      } else {
+        this.dispatch(fn.toString());
+      }
+
+      if (options.respectFunctionNames !== false) {
+        // Make sure we can still distinguish native functions
+        // by their name, otherwise String and Function will
+        // have the same hash
+        this.dispatch("function-name:" + String(fn.name));
+      }
+
+      if (options.respectFunctionProperties) {
+        this._object(fn);
+      }
+    },
+    _number: function(number){
+      return write('number:' + number.toString());
+    },
+    _xml: function(xml){
+      return write('xml:' + xml.toString());
+    },
+    _null: function() {
+      return write('Null');
+    },
+    _undefined: function() {
+      return write('Undefined');
+    },
+    _regexp: function(regex){
+      return write('regex:' + regex.toString());
+    },
+    _uint8array: function(arr){
+      write('uint8array:');
+      return this.dispatch(Array.prototype.slice.call(arr));
+    },
+    _uint8clampedarray: function(arr){
+      write('uint8clampedarray:');
+      return this.dispatch(Array.prototype.slice.call(arr));
+    },
+    _int8array: function(arr){
+      write('uint8array:');
+      return this.dispatch(Array.prototype.slice.call(arr));
+    },
+    _uint16array: function(arr){
+      write('uint16array:');
+      return this.dispatch(Array.prototype.slice.call(arr));
+    },
+    _int16array: function(arr){
+      write('uint16array:');
+      return this.dispatch(Array.prototype.slice.call(arr));
+    },
+    _uint32array: function(arr){
+      write('uint32array:');
+      return this.dispatch(Array.prototype.slice.call(arr));
+    },
+    _int32array: function(arr){
+      write('uint32array:');
+      return this.dispatch(Array.prototype.slice.call(arr));
+    },
+    _float32array: function(arr){
+      write('float32array:');
+      return this.dispatch(Array.prototype.slice.call(arr));
+    },
+    _float64array: function(arr){
+      write('float64array:');
+      return this.dispatch(Array.prototype.slice.call(arr));
+    },
+    _arraybuffer: function(arr){
+      write('arraybuffer:');
+      return this.dispatch(new Uint8Array(arr));
+    },
+    _url: function(url) {
+      return write('url:' + url.toString(), 'utf8');
+    },
+    _map: function(map) {
+      write('map:');
+      var arr = Array.from(map);
+      return this._array(arr, options.unorderedSets !== false);
+    },
+    _set: function(set) {
+      write('set:');
+      var arr = Array.from(set);
+      return this._array(arr, options.unorderedSets !== false);
+    },
+    _file: function(file) {
+      write('file:');
+      return this.dispatch([file.name, file.size, file.type, file.lastModfied]);
+    },
+    _blob: function() {
+      if (options.ignoreUnknown) {
+        return write('[blob]');
+      }
+
+      throw Error('Hashing Blob objects is currently not supported\n' +
+        '(see https://github.com/puleos/object-hash/issues/26)\n' +
+        'Use "options.replacer" or "options.ignoreUnknown"\n');
+    },
+    _domwindow: function() { return write('domwindow'); },
+    _bigint: function(number){
+      return write('bigint:' + number.toString());
+    },
+    /* Node.js standard native objects */
+    _process: function() { return write('process'); },
+    _timer: function() { return write('timer'); },
+    _pipe: function() { return write('pipe'); },
+    _tcp: function() { return write('tcp'); },
+    _udp: function() { return write('udp'); },
+    _tty: function() { return write('tty'); },
+    _statwatcher: function() { return write('statwatcher'); },
+    _securecontext: function() { return write('securecontext'); },
+    _connection: function() { return write('connection'); },
+    _zlib: function() { return write('zlib'); },
+    _context: function() { return write('context'); },
+    _nodescript: function() { return write('nodescript'); },
+    _httpparser: function() { return write('httpparser'); },
+    _dataview: function() { return write('dataview'); },
+    _signal: function() { return write('signal'); },
+    _fsevent: function() { return write('fsevent'); },
+    _tlswrap: function() { return write('tlswrap'); },
+  };
+}
+
+// Mini-implementation of stream.PassThrough
+// We are far from having need for the full implementation, and we can
+// make assumptions like "many writes, then only one final read"
+// and we can ignore encoding specifics
+function PassThrough() {
+  return {
+    buf: '',
+
+    write: function(b) {
+      this.buf += b;
+    },
+
+    end: function(b) {
+      this.buf += b;
+    },
+
+    read: function() {
+      return this.buf;
+    }
+  };
+}
+
 
 /***/ }),
 
@@ -52730,6 +52237,28 @@ module.exports = require("aws-sdk/clients/lambda");
 
 /***/ }),
 
+/***/ "aws-sdk/clients/s3":
+/*!*************************************!*\
+  !*** external "aws-sdk/clients/s3" ***!
+  \*************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("aws-sdk/clients/s3");
+
+/***/ }),
+
+/***/ "sharp":
+/*!************************!*\
+  !*** external "sharp" ***!
+  \************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("sharp");
+
+/***/ }),
+
 /***/ "assert":
 /*!*************************!*\
   !*** external "assert" ***!
@@ -64615,7 +64144,7 @@ module.exports = JSON.parse('{"name":"zerop","version":"1.0.1","description":"Pa
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	__webpack_require__("./node_modules/source-map-support/register.js");
-/******/ 	var __webpack_exports__ = __webpack_require__("./apps/api/graphql/src/index.ts");
+/******/ 	var __webpack_exports__ = __webpack_require__("./apps/api/fileManager/transform/src/index.ts");
 /******/ 	var __webpack_export_target__ = exports;
 /******/ 	for(var i in __webpack_exports__) __webpack_export_target__[i] = __webpack_exports__[i];
 /******/ 	if(__webpack_exports__.__esModule) Object.defineProperty(__webpack_export_target__, "__esModule", { value: true });
