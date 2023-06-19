@@ -90,7 +90,8 @@ const handler = async (event, context) => {
       }) => {
         onPost("/graphql", async (request, reply) => {
           return reply.code(200).headers({
-            "XXXXXXXXXXXB": `OOOOOOOOOOOOOOOB`
+            "XXXXXXXXXXXB": `OOOOOOOOOOOOOOOB`,
+            "X-Amz-Client-Context": `eyJYWFhYWFgiOiJRUVFRUVFRUVEifQ==`
           }).send("Hello world..");
         });
       })],
