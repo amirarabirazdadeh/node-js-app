@@ -66,7 +66,7 @@ const handler = async (event, context) => {
       "x-tenant": "root",
       "Content-Type": "application/json; charset=utf-8",
       "x-i18n-locale": "default:en-US;content:en-US",
-      "access-control-allow-methods": "POST, GET"
+      "Access-Control-Allow-Methods": "POST, GET"
     };
 
     // const query = {
