@@ -65,7 +65,8 @@ const handler = async (event, context) => {
     const tmpHeaders = {
       "x-tenant": "root",
       "Content-Type": "application/json; charset=utf-8",
-      "x-i18n-locale": "default:en-US;content:en-US"
+      "x-i18n-locale": "default:en-US;content:en-US",
+      "access-control-allow-methods": "POST, GET"
     };
 
     // const query = {
