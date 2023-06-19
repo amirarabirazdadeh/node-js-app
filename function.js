@@ -90,7 +90,7 @@ const handler = async (event, context) => {
         onPost
       }) => {
         onPost("/graphql", async (request, reply) => {
-          return reply.code(200).headers({
+          return reply.code(202).headers({
             "XXXXXXXXXXXB": `OOOOOOOOOOOOOOOB`,
             "X-Amz-Client-Context": `eyJYWFhYWFgiOiJRUVFRUVFRUVEifQ==`,
             "X-Amz-Xccccc": `=========`
