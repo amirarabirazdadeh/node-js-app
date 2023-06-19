@@ -93,7 +93,14 @@ const handler = async (event, context) => {
             "XXXXXXXXXXXB": `OOOOOOOOOOOOOOOB`,
             "X-Amz-Client-Context": `eyJYWFhYWFgiOiJRUVFRUVFRUVEifQ==`,
             "X-Amz-Xccccc": `=========`
-          }).send("Hello world..");
+          }).send({
+            message: "Hello World!",
+            context: {
+              headers: {
+                "x-tenant": "root"
+              }
+            }
+          });
         });
       })],
       http: {
