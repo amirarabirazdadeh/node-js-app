@@ -67,7 +67,11 @@ const handler = async (event, context) => {
     const response = await handler(ev, context);
     //return response.body;
 
-    return 'data:image/jpeg;base64,' + response.body;
+    const base64Response = await fetch(`data:image/jpeg;base64,${response.body}`);
+    const blob = await base64Response.blob();
+    return blob;
+
+    // return ('data:image/jpeg;base64,' + response.body).blob();
 
     //return await createWriteStream(response.body, { encoding: 'base64' });
     //const buffer = Buffer.from(response.body, 'base64');
