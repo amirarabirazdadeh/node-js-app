@@ -67,11 +67,16 @@ const handler = async (event, context) => {
     const response = await handler(ev, context);
     //return response.body;
 
-    var blob = b64toBlob(response.body, "image/jpeg");
+    var binary = fixBinary(atob(response.body));
+    var blob = new Blob([binary], {
+      type: 'image/jpeg'
+    });
+    const reader = new FileReader();
+    //var blob = b64toBlob(response.body, "image/jpeg");
 
     //   const base64Response = await fetch(`data:image/jpeg;base64,${response.body}`);
     //   const blob = await base64Response.blob();
-    return blob;
+    return reader.readAsText(blob);
 
     //return ('data:image/jpeg;base64,' + response.body);
 
@@ -88,24 +93,14 @@ const handler = async (event, context) => {
     };
   }
 };
-function b64toBlob(b64Data, contentType, sliceSize) {
-  contentType = contentType || "";
-  sliceSize = sliceSize || 512;
-  var byteCharacters = atob(b64Data);
-  var byteArrays = [];
-  for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-    var slice = byteCharacters.slice(offset, offset + sliceSize);
-    var byteNumbers = new Array(slice.length);
-    for (var i = 0; i < slice.length; i++) {
-      byteNumbers[i] = slice.charCodeAt(i);
-    }
-    var byteArray = new Uint8Array(byteNumbers);
-    byteArrays.push(byteArray);
+function fixBinary(bin) {
+  var length = bin.length;
+  var buf = new ArrayBuffer(length);
+  var arr = new Uint8Array(buf);
+  for (var i = 0; i < length; i++) {
+    arr[i] = bin.charCodeAt(i);
   }
-  console.log(byteArrays);
-  return new File(byteArrays, "pot", {
-    type: contentType
-  });
+  return buf;
 }
 
 /***/ }),
