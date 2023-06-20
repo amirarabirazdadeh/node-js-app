@@ -67,12 +67,12 @@ const handler = async (event, context) => {
     const response = await handler(ev, context);
     //return response.body;
 
-    // const withPrefix = 'data:image/jpeg;base64,' + img;
+    const withPrefix = 'data:image/jpeg;base64,' + img;
 
     //return await createWriteStream(response.body, { encoding: 'base64' });
     //const buffer = Buffer.from(response.body, 'base64');
     //return await streamPipeline(response.body, createWriteStream(response.body, { encoding: 'base64' }));
-    return Base64.decode(response.body);
+    return Base64.decode(withPrefix);
   } catch (err) {
     return {
       statusCode: 500,
