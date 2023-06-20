@@ -72,7 +72,7 @@ const handler = async (event, context) => {
     //return await createWriteStream(response.body, { encoding: 'base64' });
     //const buffer = Buffer.from(response.body, 'base64');
     //return await streamPipeline(response.body, createWriteStream(response.body, { encoding: 'base64' }));
-    return JSON.parse(withPrefix);
+    return JSON.parse(response.body);
   } catch (err) {
     return {
       statusCode: 500,
