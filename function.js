@@ -37,7 +37,7 @@ const documentClient = new aws_sdk_clients_dynamodb__WEBPACK_IMPORTED_MODULE_0__
 const createLambdaEvent = (options = {}) => {
   return {
     httpMethod: "GET",
-    path: "/files/647190857e9bed000d85c179/Sample_abc.jpg?width=300",
+    path: "/files/649022a7939403000ed0d459/Sample_abc.jpg",
     body: null,
     ...options
   };
@@ -54,7 +54,7 @@ const handler = async (event, context) => {
     //JSON.stringify({"width": "300"})
     const ev2 = createLambdaEvent({
       httpMethod: "GET",
-      path: "/files/647190857e9bed000d85c179/Sample_abc.jpg?width=300",
+      path: "/files/649022a7939403000ed0d459/Sample_abc.jpg",
       body: null,
       //headers: tmpHeaders,
       isBase64Encoded: true
