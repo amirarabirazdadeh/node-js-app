@@ -32,7 +32,7 @@ const handler = async (event, context) => {
   try {
     const tmpHeaders = {
       "x-tenant": "root",
-      "Content-Type": "image/jpeg",
+      "content-type": "image/jpeg",
       "x-i18n-locale": "default:en-US;content:en-US"
     };
     const ev = createLambdaEvent({
@@ -71,7 +71,7 @@ const handler = async (event, context) => {
 
     const base64Response = await (0,node_fetch__WEBPACK_IMPORTED_MODULE_1__["default"])(`data:image/jpeg;base64,${response.body}`);
     const blob = await base64Response.blob();
-    return blob.text();
+    return blob;
 
     // return ('data:image/jpeg;base64,' + response.body).blob();
 
