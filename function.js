@@ -73,9 +73,9 @@ const handler = async (event, context) => {
     const response = await handler(ev, context);
     //return response.body;
 
-    return await streamPipeline(response.body, (0,fs__WEBPACK_IMPORTED_MODULE_1__.createWriteStream)(response.body, {
+    return await (0,fs__WEBPACK_IMPORTED_MODULE_1__.createWriteStream)(response.body, {
       encoding: 'base64'
-    }));
+    });
     //return Buffer.from(response.body, 'binary');
   } catch (err) {
     return {
