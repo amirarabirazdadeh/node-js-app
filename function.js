@@ -13,20 +13,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "handler": () => (/* binding */ handler)
 /* harmony export */ });
 /* harmony import */ var _webiny_handler_aws__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @webiny/handler-aws */ "./packages/handler-aws/dist/index.js");
-/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! fs */ "fs");
-/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(fs__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! util */ "util");
-/* harmony import */ var util__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(util__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var stream__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! stream */ "stream");
-/* harmony import */ var stream__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(stream__WEBPACK_IMPORTED_MODULE_3__);
 //import { LambdaResponse } from "@fastify/aws-lambda";
 
 const {
   Base64
 } = __webpack_require__(/*! js-base64 */ "./node_modules/js-base64/base64.js");
-
-
-
 const createLambdaEvent = (options = {}) => {
   return {
     httpMethod: "GET",
@@ -70,15 +61,17 @@ const handler = async (event, context) => {
         });
       })]
     });
-    const streamPipeline = (0,util__WEBPACK_IMPORTED_MODULE_2__.promisify)(stream__WEBPACK_IMPORTED_MODULE_3__.pipeline);
+
+    //const streamPipeline = promisify(pipeline);
+
     const response = await handler(ev, context);
     //return response.body;
 
-    //return JSON.parse('data:image/jpeg;base64,' + response.body);
+    return 'data:image/jpeg;base64,' + response.body;
 
     //return await createWriteStream(response.body, { encoding: 'base64' });
     //const buffer = Buffer.from(response.body, 'base64');
-    return await streamPipeline(response.body, (0,fs__WEBPACK_IMPORTED_MODULE_1__.createWriteStream)(response.body));
+    //return await streamPipeline(response.body, createWriteStream(response.body));
     //return JSON.parse(response.body);
   } catch (err) {
     return {
