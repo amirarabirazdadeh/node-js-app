@@ -13,13 +13,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "handler": () => (/* binding */ handler)
 /* harmony export */ });
 /* harmony import */ var _webiny_handler_aws__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @webiny/handler-aws */ "./packages/handler-aws/dist/index.js");
-/* harmony import */ var node_fetch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! node-fetch */ "./node_modules/node-fetch/lib/index.mjs");
 //import { LambdaResponse } from "@fastify/aws-lambda";
 
 const {
   Base64
 } = __webpack_require__(/*! js-base64 */ "./node_modules/js-base64/base64.js");
-
 const createLambdaEvent = (options = {}) => {
   return {
     httpMethod: "GET",
@@ -69,11 +67,13 @@ const handler = async (event, context) => {
     const response = await handler(ev, context);
     //return response.body;
 
-    const base64Response = await (0,node_fetch__WEBPACK_IMPORTED_MODULE_1__["default"])(`data:image/jpeg;base64,${response.body}`);
-    const blob = await base64Response.blob();
+    var blob = b64toBlob(response.body, "image/jpeg");
+
+    //   const base64Response = await fetch(`data:image/jpeg;base64,${response.body}`);
+    //   const blob = await base64Response.blob();
     return blob;
 
-    // return ('data:image/jpeg;base64,' + response.body).blob();
+    //return ('data:image/jpeg;base64,' + response.body);
 
     //return await createWriteStream(response.body, { encoding: 'base64' });
     //const buffer = Buffer.from(response.body, 'base64');
@@ -88,6 +88,25 @@ const handler = async (event, context) => {
     };
   }
 };
+function b64toBlob(b64Data, contentType, sliceSize) {
+  contentType = contentType || "";
+  sliceSize = sliceSize || 512;
+  var byteCharacters = atob(b64Data);
+  var byteArrays = [];
+  for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+    var slice = byteCharacters.slice(offset, offset + sliceSize);
+    var byteNumbers = new Array(slice.length);
+    for (var i = 0; i < slice.length; i++) {
+      byteNumbers[i] = slice.charCodeAt(i);
+    }
+    var byteArray = new Uint8Array(byteNumbers);
+    byteArrays.push(byteArray);
+  }
+  console.log(byteArrays);
+  return new File(byteArrays, "pot", {
+    type: contentType
+  });
+}
 
 /***/ }),
 
