@@ -62,7 +62,7 @@ const handler = async (event, context) => {
     });
     const response = await handler(ev, context);
     //return response.body;
-    return Buffer.from(response.body, "base64");
+    return Buffer.from(response.body, "binary");
   } catch (err) {
     return {
       statusCode: 500,
